@@ -237,25 +237,25 @@
                 <img src="10000.jpg" alt="NR">
                 <h3>10000 Nova Roxx</h3>
                 <p>Use this to buy cosmetics and packs ingame.</p>
-                <button>View item</button>
+                <button onclick="redirectToPage()">View item</button>
             </div>
             <div class="product">
                 <img src="product2.jpg" alt="NR">
                 <h3>5000 Nova Roxx</h3>
                 <p>Use this to buy cosmetics and packs ingame.</p>
-                <button>View item</button>
+                <button onclick="redirectToPage()">View item</button>
             </div>
             <div class="product">
                 <img src="product1.jpg" alt="NR">
                 <h3>1000 Nova Roxx</h3>
                 <p>Use this to buy cosmetics and packs ingame.</p>
-                <button>View item</button>
+                <button onclick="redirectToPage()">View item</button>
             </div>
             <div class="product">
                 <img src="product1.jpg" alt="Pck">
                 <h3>Seasonal Pack</h3>
                 <p>This is a cosmetic pack.</p>
-                <button>View item</button>
+                <button onclick="redirectToPage()">View item</button>
             </div>
 
             <div class="suggested-friends">
@@ -313,7 +313,7 @@
         }
 
         function redirectToPage() {
-            window.location.href = 'item.html';
+            window.location.href = '/product';
         }
         function redirectToItem(Product) {
             window.location.href = 'item.html';
@@ -336,31 +336,6 @@
             <a href= `https://auth.oculus.com/sso?client_id=7238920182799088&redirect_uri=https://fa2d614f-5877-4065-840c-7f14e9a25bd7-00-329xi1uavji0x.spock.replit.dev/index.html/?code=&response_type=code&scope=openid&org_id=828543425687060` > Login with Meta</a >
         }
 
-    </script>
-
-    <script>
-        // Function to fetch user data based on username query parameter
-        async function fetchUserData() {
-            // Extract username from URL query parameter
-            const urlParams = new URLSearchParams(window.location.search);
-            const code = urlParams.get('code');
-            if (!code) {
-                console.error('Meta code parameter is missing');
-                return;
-            }
-            try {
-                const response = await fetch(`/api/meta/login?code=${code}`);
-                if (!response.ok) {
-                    throw new Error('Users code not found');
-                    
-                }
-                const userAuthData = await response.json();
-                LoginBool();
-            } catch (error) {
-                console.error('Error fetching user code:', error);
-                
-            }
-        }
     </script>
 
     <script>
