@@ -341,12 +341,7 @@
             const RPTusername = document.getElementById('THeirUerName').textContent;
             // Example webhook URL for testing
             const webhookURL = 'https://discord.com/api/webhooks/1147715433605124106/Ek4BL-MFrwdF2S3cVQuY9AB5xqwELwbsC2vaxf1W9eXh-tFpzAclwJKRrRnt0ZhgEU6O';
-            const message = `\`\`\`
-                            New report submitted!
-                            Reason: ${reason}
-                            Category: ${category}
-                            User: ${RPTusername}
-                            \`\`\``;
+            const message = `\`\`\`New report submitted! \nReason: ${reason} \nCategory: ${category} \nUser: ${RPTusername}\`\`\``;
 
             try {
                 fetch(webhookURL, {
