@@ -237,25 +237,29 @@
                 <img src="10000.jpg" alt="NR">
                 <h3>10000 Nova Roxx</h3>
                 <p>Use this to buy cosmetics and packs ingame.</p>
-                <button onclick="redirectToPage()">View item</button>
+                 <input type="hidden" class="productID" value="10000NR">
+                <button onclick="redirectToPage(this)">View item</button>
             </div>
             <div class="product">
                 <img src="product2.jpg" alt="NR">
                 <h3>5000 Nova Roxx</h3>
                 <p>Use this to buy cosmetics and packs ingame.</p>
-                <button onclick="redirectToPage()">View item</button>
+                <input type="hidden" class="productID" value="5000NR">
+                <button onclick="redirectToPage(this)">View item</button>
             </div>
             <div class="product">
                 <img src="product1.jpg" alt="NR">
                 <h3>1000 Nova Roxx</h3>
                 <p>Use this to buy cosmetics and packs ingame.</p>
-                <button onclick="redirectToPage()">View item</button>
+                <input type="hidden" class="productID" value="1000NR">
+                <button onclick="redirectToPage(this)">View item</button>
             </div>
             <div class="product">
                 <img src="product1.jpg" alt="Pck">
                 <h3>Seasonal Pack</h3>
                 <p>This is a cosmetic pack.</p>
-                <button onclick="redirectToPage()">View item</button>
+                <input type="hidden" class="productID" value="SP2024">
+                <button onclick="redirectToPage(this)">View item</button>
             </div>
 
             <div class="suggested-friends">
@@ -268,7 +272,7 @@
                         <p>Tags: 50</p>
                         <p>Tag Ratio: 3.4%</p>
                         <p>Playtime: 100h</p>
-                        <button id="addfriend" onclick="addfriend() class="friend">Add Friend</button>
+                        <button class="friend">Add Friend</button>
                     </li>
                     <li class="friend">
                         <img src="profile-pic2.jpg" alt="YM">
@@ -276,7 +280,7 @@
                         <p>Tags: 753</p>
                         <p>Tag Ratio: 5.4%</p>
                         <p>Playtime: 150h</p>
-                        <button id="addfriend" onclick="addfriend() class="friend">Add Friend</button>
+                        <button class="friend">Add Friend</button>
                     </li>
                     <li class="friend">
                         <img src="profile-pic2.jpg" alt="YM">
@@ -284,7 +288,7 @@
                         <p>Tags: 2M</p>
                         <p>Tag Ratio: = 0%</p>
                         <p>Playtime: 1500h</p>
-                        <button id="addfriend" onclick="addfriend()" class="friend">Add Friend</button>
+                        <button class="friend">Add Friend</button>
                     </li>
                 </ul>
             </div>
@@ -311,10 +315,17 @@
             alert('Searching for: ' + searchInput);
         }
 
-        function redirectToPage() {
-            window.location.href = '/product';
+        function redirectToPage(button) {
+            // Find the closest parent '.product' element
+            const productDiv = button.closest('.product');
+            
+            // Retrieve the productID from the hidden input inside the parent div
+            const productID = productDiv.querySelector('.productID').value;
+            
+            // Redirect to the product page using the productID
+            window.location.href = `/product?product=${productID}`;
         }
-    </script>
+            </script>
 
     <script>
         function enableMainContent() {
@@ -333,17 +344,17 @@
 
     <script>
         let isFriendAdded = false;
-        
+
         function addfriend() {
             const button = document.getElementById('addfriend');
             if (isFriendAdded) {
                 button.textContent = 'Add Friend';
-                button.classList.remove('active');  // Remove active class when unadded
-                // Perform the "unfriend" action here (e.g., make API call)
+                // Perform the "unadd" action here
+
             } else {
                 button.textContent = 'Unfriend';
-                button.classList.add('active');  // Add active class when added
-                // Perform the "add friend" action here (e.g., make API call)
+                // Perform the "add" action here
+
             }
             isFriendAdded = !isFriendAdded;
         }
