@@ -194,16 +194,18 @@
           // Replace 'page2.html' with the filename of your destination HTML page
           window.location.href = '/product';
         }
-        
+    </script>
+
+    <script>
         function redirectToPage(button) {
             // Find the closest parent '.product' element
             const productDiv = button.closest('.product');
-
+            
             // Retrieve the productID from the hidden input inside the parent div
             const productID = productDiv.querySelector('.productID').value;
-
+            
             // Redirect to the product page using the productID
-            window.location.href = /product?product=${productID};
+            window.location.href = `/product?product=${productID}`;
         }
     </script>
 </body>
