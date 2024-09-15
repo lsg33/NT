@@ -167,5 +167,24 @@
             }
         });
     </script>
+    
+    <script>
+    function getCookie(name) {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(';').shift();
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const darkMode = getCookie('darkMode');
+        const toggleSwitch = document.getElementById('modeToggle');
+
+        if (darkMode === 'true') {
+                toggleSwitch.checked = true;
+        } else {
+                 toggleSwitch.checked = false;
+        }
+    });
+</script>
 </body>
 </html>
