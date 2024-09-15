@@ -268,7 +268,7 @@
                     <p class="product-description"></p>
                     <p class="product-price"></p>
                     <input type="hidden" class="productID" value="">
-                    <button onclick="redirectToPage(productID)" class="view-item-btn">View item</button>
+                    <button class="view-item-btn">View item</button>
                   </div>
                 </template>
             </div>
@@ -423,7 +423,6 @@
                     productDiv.querySelector('.product-description').textContent = product.description;
                     productDiv.querySelector('.productID').value = product.productID;
                     
-                    // Set the button onclick event to redirect to the product page
                     productDiv.querySelector('.view-item-btn').onclick = function() {
                         redirectToPage(productData.productID);
                     };
