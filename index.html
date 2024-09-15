@@ -268,7 +268,7 @@
                     <p class="product-description"></p>
                     <p class="product-price"></p>
                     <input type="hidden" class="productID" value="">
-                    <button onclick="redirectToPage(button)" class="view-item-btn">View item</button>
+                    <button onclick="redirectToPage(productID)" class="view-item-btn">View item</button>
                   </div>
                 </template>
             </div>
@@ -330,13 +330,7 @@
             window.location.href = `/search?searchIM=${encodeURIComponent(searchInput)}`;
         }
 
-        function redirectToPage(button) {
-            // Find the closest parent '.product' element
-            const productDiv = button.closest('.product');
-            
-            // Retrieve the productID from the hidden input inside the parent div
-            const productID = productDiv.querySelector('.productID').value;
-            
+        function redirectToPage(productID) {
             // Redirect to the product page using the productID
             window.location.href = `/product?productID=${productID}`;
         }
