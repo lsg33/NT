@@ -5,19 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <style>
-        .fade-in {
-            animation: fadeIn 2s ease-in-out infinite;
+        .loading {
+            font-size: 24px;
+            font-weight: bold;
+            letter-spacing: 2px;
         }
 
-        @keyframes fadeIn {
+        .loading::after {
+            content: '...';
+            animation: dots 1.5s steps(3, end) infinite;
+        }
+
+        @keyframes dots {
             0% {
-                opacity: 0;
+                content: '';
             }
-            50% {
-                opacity: 1;
+            33% {
+                content: '.';
+            }
+            66% {
+                content: '..';
             }
             100% {
-                opacity: 0;
+                content: '...';
             }
         }
     </style>
@@ -59,6 +69,6 @@
 </head>
 <body>
     <h1>Login</h1>
-    <p id="authenticateText" class="fade-in">Please wait while we authenticate...</p>
+    <p id="authenticateText" class="loading">Please wait while we authenticate...</p>
 </body>
 </html>
