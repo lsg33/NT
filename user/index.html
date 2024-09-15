@@ -393,7 +393,7 @@
                 return;
             }
             try {
-                const response = await fetch(`/api/user?username=${username}`);
+                const response = await fetch(`/user?username=${username}`);
                 if (!response.ok) {
                     throw new Error('Users data not found');
                     ErrorDataNotFound();
