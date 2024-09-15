@@ -1,57 +1,48 @@
 const express = require('express');
-const path = require('path');
 const mongoose = require('mongoose');
+const PlayFab = require('playfab-sdk/Scripts/PlayFab/PlayFabClient');
 
 const app = express();
-const PORT = process.env.PORT || 3000;
-
-// Serve static files from the 'public' directory
-app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
 
-// Replace with your MongoDB connection string
-const mongoURI = 'mongodb+srv://forcesspecial801:oCqg7zZg0MA95I5b@cluster777.atoevuq.mongodb.net/NT?retryWrites=true&w=majority';
+mongoose.connect('mongodb+srv://forcesspecial801:oCqg7zZg0MA95I5b@cluster777.atoevuq.mongodb.net/NT', { useNewUrlParser: true, useUnifiedTopology: true });
 
-mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => console.log('MongoDB connected'))
-  .catch(err => console.log(err));
-
-// Define a User schema and model
-const UserSchema = new mongoose.Schema({
-  id: { type: String, required: false, unique: true },
-  username: { type: String, required: true, unique: true },
-  name: { type: String, required: false },
-  tags: { type: String, required: false },
-  playtime: { type: String, required: false },
-  // Add other fields as needed
+const userSchema = new mongoose.Schema({
+  oculusId: String,
+  playFabId: String,
+  displayName: String,
 });
 
-const User = mongoose.model('User', UserSchema, 'Users');
+const User = mongoose.model('User', userSchema);
 
-// Serve user.html as the main entry point
-app.get('/Static/user.html', (req, res) => {
-  res.sendFile(path.resolve(__dirname, 'public', 'user.html'));
-});
+app.post('/api/auth/oculus', (req, res) => {
+  const { oculusId, accessToken } = req.body;
 
-// API endpoint to fetch user data based on username query parameter
-app.get('/api/user', async (req, res) => {
-  try {
-    const username = req.query.username;
-    if (!username) {
-      return res.status(400).json({ error: 'Username parameter is required' });
+  PlayFabClient.LoginWithOculus({
+    CreateAccount: true,
+    OculusId: oculusId,
+    AccessToken: accessToken,
+    TitleId: "FDFD1"
+  }, async (error, result) => {
+    if (error) {
+      console.error("PlayFab login failed:", error);
+      return res.status(500).json({ success: false, message: "PlayFab login failed" });
+    } else {
+      console.log("PlayFab login successful:", result);
+      const { PlayFabId, InfoResultPayload } = result.data;
+      const { AccountInfo } = InfoResultPayload;
+      const { TitleInfo } = AccountInfo;
+      const { DisplayName } = TitleInfo;
+
+      const user = new User({
+        oculusId: oculusId,
+        playFabId: PlayFabId,
+        displayName: DisplayName,
+      });
+
+      await user.save();
+      console.log("User data logged in MongoDB:", user);
+      return res.json({ success: true, user });
     }
-    const user = await User.findOne({ username });
-    if (!user) {
-      return res.status(404).json({ error: 'User not found' });
-    }
-    res.json(user);
-  } catch (error) {
-    console.error('Error while server was fetching user data:', error);
-    res.status(500).json({ error: 'Internal server error' });
-  }
-});
-
-// Start the server
-app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
+  });
 });
