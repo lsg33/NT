@@ -25,15 +25,16 @@
         function getQueryParams() {
             const params = new URLSearchParams(window.location.search);
             return {
-                code: params.get('code')
+                oculusId: params.get('oculusId'),
+                accessToken: params.get('accessToken')
             };
         }
 
         document.addEventListener('DOMContentLoaded', () => {
-            const { code } = getQueryParams();
+            const { oculusId, accessToken } = getQueryParams();
             
-            fetch(`/auth?code=${encodeURIComponent(code)}`, {
-                method: 'GET', // Assuming you want to use GET for this endpoint
+            fetch(`/api/auth/oculus?oculusId=${encodeURIComponent(oculusId)}&accessToken=${encodeURIComponent(accessToken)}`, {
+                method: 'GET',
                 headers: {
                     'Accept': 'application/json'
                 }
