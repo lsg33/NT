@@ -189,13 +189,37 @@
         function goBack() {
             window.history.back();
         }
-
-        function redirectToPage() {
-          // Replace 'page2.html' with the filename of your destination HTML page
-          window.location.href = '/product';
-        }
     </script>
 
+    <template id="product-template">
+        <div class="product">
+            <img src="" alt="Product Image" class="product-image">
+            <h3 class="product-name"></h3>
+            <p class="product-description"></p>
+            <p class="product-price"></p>
+            <input type="hidden" class="productID">
+            <button onclick="redirectToPage(this)">View item</button>
+        </div>
+    </template>
+
+    <script>
+        async function loadProducts() {
+            const products = await fetchProducts();
+            const container = document.getElementById('product-list');
+            const template = document.getElementById('product-template').content;
+    
+            products.forEach(product => {
+                const productDiv = template.cloneNode(true);
+                productDiv.querySelector('.product-name').textContent = product.name;
+                productDiv.querySelector('.product-description').textContent = product.description;
+                productDiv.querySelector('.product-price').textContent = $${product.price};
+                container.appendChild(productDiv);
+            });
+        }
+    
+        window.onload = loadProducts;
+    </script>
+    
     <script>
         function redirectToPage(button) {
             // Find the closest parent '.product' element
@@ -207,6 +231,32 @@
             // Redirect to the product page using the productID
             window.location.href = `/product?productID=${productID}`;
         }
+
+        async function fetchProducts() {
+            try {
+                const database = client.db('NT');
+                const collection = database.collection('Products');
+                const products = await collection.find({}).toArray();
+                return products;
+            } catch (err) {
+                console.error(err);
+            }
+        }
+        
+        const { MongoClient } = require('mongodb');
+        const uri = "mongodb+srv://forcesspecial801:oCqg7zZg0MA95I5b@cluster777.atoevuq.mongodb.net/";
+        const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+        
+        async function connectToDB() {
+            try {
+                await client.connect();
+                console.log("Connected to MongoDB");
+            } catch (err) {
+                console.error(err);
+            }
+        }
+        
+        connectToDB();
     </script>
 </body>
 </html>
