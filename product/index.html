@@ -314,7 +314,7 @@
     <script>
         function DataFound(productData){
             document.getElementById('product-name').textContent = productData.name;
-            document.getElementById('price').textContent = productData.price;
+            document.getElementById('price').textContent = '$' + productData.price + '.99';
             document.getElementById('fstdesc').textContent = productData.description;
         }
     </script>
