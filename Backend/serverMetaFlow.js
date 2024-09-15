@@ -17,7 +17,7 @@ const userSchema = new mongoose.Schema({
 const User = mongoose.model('User', userSchema);
 
 // Serve static files from 'public' directory
-app.use(express.static('public'));
+
 
 // Route to fetch user data
 app.get('/user', async (req, res) => {
