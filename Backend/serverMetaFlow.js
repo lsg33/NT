@@ -20,25 +20,31 @@ const User = mongoose.model('User', userSchema);
 app.use(express.static('public'));
 
 // Route to fetch user data
-app.get('/api/user', async (req, res) => {
-  const { username } = req.query;
-  if (!username) {
-    return res.status(400).json({ error: 'Username query parameter is required' });
-  }
+app.get('/user', async (req, res) => {
+    const username = req.query.username;
 
-  try {
-    const user = await User.findOne({ username });
-    if (!user) {
-      return res.status(404).json({ error: 'User not found' });
+    if (!username) {
+        return res.status(400).json({ error: 'Username is required' });
     }
-    res.json(user);
-  } catch (err) {
-    console.error('Error fetching user data:', err);
-    res.status(500).json({ error: 'Error fetching user data' });
-  }
+
+    try {
+        await client.connect();
+        const database = client.db('NT');
+        const users = database.collection('Users');
+        const user = await users.findOne({ username });
+
+        if (user) {
+            res.json(user);
+        } else {
+            res.status(404).json({ error: 'User not found' });
+        }
+    } catch (err) {
+        res.status(500).json({ error: 'Error fetching user data' });
+    } finally {
+        await client.close();
+    }
 });
 
-// Start the server
-app.listen(port, () => {
-  console.log(`Server is running on http://localhost:${port}`);
+app.listen(3000, () => {
+    console.log('Server is running on port 3000');
 });
