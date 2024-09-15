@@ -16,7 +16,7 @@ const userSchema = new mongoose.Schema({
 
 const User = mongoose.model('User', userSchema);
 
-// Serve static files
+// Serve static files from 'public' directory
 app.use(express.static('public'));
 
 // Route to fetch user data
@@ -28,10 +28,7 @@ app.get('/user', async (req, res) => {
     }
 
     try {
-        await client.connect();
-        const database = client.db('NT');
-        const users = database.collection('Users');
-        const user = await users.findOne({ username });
+        const user = await User.findOne({ username });
 
         if (user) {
             res.json(user);
@@ -40,11 +37,9 @@ app.get('/user', async (req, res) => {
         }
     } catch (err) {
         res.status(500).json({ error: 'Error fetching user data' });
-    } finally {
-        await client.close();
     }
 });
 
-app.listen(3000, () => {
-    console.log('Server is running on port 3000');
+app.listen(port, () => {
+    console.log(`Server is running on port ${port}`);
 });
