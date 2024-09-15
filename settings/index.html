@@ -127,9 +127,16 @@
         <section class="settings">
             <h2>Settings</h2>
             <p>Here you can configure your settings.</p>
+            
             <p>Dark Mode/Light Mode</p>
             <label class="switch">
                 <input type="checkbox" id="modeToggle">
+                <span class="slider"></span>
+            </label>
+
+            <p>Dev Login</p>
+            <label class="switch">
+                <input type="checkbox" id="loginToggle">
                 <span class="slider"></span>
             </label>
         </section>
@@ -165,6 +172,20 @@
                 document.body.classList.remove('dark-mode');
                 document.body.classList.add('light-mode');
                 setCookie('darkMode', 'false', 60);
+            }
+        });
+    </script>
+
+    <script>
+        // Get the toggle switch element
+        const toggleSwitch = document.getElementById('loginToggle');
+
+        // Event listener for the toggle switch
+        toggleSwitch.addEventListener('change', function() {
+            if (this.checked) {
+                setCookie('isLoggedIn', 'true', 60);
+            } else {
+                setCookie('isLoggedIn', 'false', 60);
             }
         });
     </script>
