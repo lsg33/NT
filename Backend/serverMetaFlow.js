@@ -16,7 +16,13 @@ const userSchema = new mongoose.Schema({
 
 const User = mongoose.model('User', userSchema);
 
-// Serve static files from 'public' directory
+app.use(express.static('public')); // Ensure this does not conflict with API routes
+
+// Middleware to set Content-Type for JSON responses
+app.use((req, res, next) => {
+  res.setHeader('Content-Type', 'application/json');
+  next();
+});
 
 
 // Route to fetch user data
