@@ -184,7 +184,7 @@
                     productDiv.querySelector('.product-image').src = product.image; // Set the image URL
                     productDiv.querySelector('.product-image').alt = product.name; // Set alt text to the product name
                     productDiv.querySelector('.product-name').textContent = product.name;
-                    productDiv.querySelector('.product-price').textContent = product.price;
+                    productDiv.querySelector('.product-price').textContent = '$' + product.price;
                     productDiv.querySelector('.product-description').textContent = product.description;
                     productDiv.querySelector('.productID').value = product.productID;
                     
