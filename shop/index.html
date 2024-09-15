@@ -146,7 +146,16 @@
             <button>Search</button>
         </div>
 
-        <div class="product-list">
+        <div id="product-list" class="product-list">
+            <template id="product-template">
+              <div class="product">
+                <img class="product-image" src="" alt="">
+                <h3 class="product-name"></h3>
+                <p class="product-description"></p>
+                <input type="hidden" class="productID" value="">
+                <button class="view-item-btn">View item</button>
+              </div>
+            </template>
             <div class="product">
                 <img src="product1.jpg" alt="NR">
                 <h3>10000 Nova Roxx</h3>
@@ -194,23 +203,31 @@
     <script>
         async function loadProducts() {
             try {
-                const response = await fetch('/api/products'); // Fetch from your API endpoint
+                const response = await fetch('https://1d62c3c9-d69b-4407-9833-107c85ed3bd9-00-3pamqtk5wwj5h.kirk.replit.dev/products'); // Fetch from your API endpoint
                 const products = await response.json();
                 const container = document.getElementById('product-list');
                 const template = document.getElementById('product-template').content;
-        
+                
                 products.forEach(product => {
                     const productDiv = template.cloneNode(true);
+                    productDiv.querySelector('.product-image').src = product.image; // Set the image URL
+                    productDiv.querySelector('.product-image').alt = product.name; // Set alt text to the product name
                     productDiv.querySelector('.product-name').textContent = product.name;
                     productDiv.querySelector('.product-description').textContent = product.description;
-                    productDiv.querySelector('.product-price').textContent = `$${product.price}`;
-                    productDiv.querySelector('.productID').value = product._id; // Ensure the productID is set
+                    productDiv.querySelector('.productID').value = product.productID;
+                    
+                    // Set the button onclick event to redirect to the product page
+                    productDiv.querySelector('.view-item-btn').onclick = function() {
+                        redirectToPage(product.productID);  // Assuming `redirectToPage` takes the product ID
+                    };
+        
                     container.appendChild(productDiv);
                 });
             } catch (err) {
                 console.error('Failed to load products:', err);
             }
         }
+
     
         window.onload = loadProducts;
     </script>
