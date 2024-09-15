@@ -361,6 +361,11 @@
             document.getElementById('not-logged-in-content').style.display = 'block';
         }
 
+        function redirectToPage(productID) {
+    // Redirect to the product page using the productID
+            window.location.href = `/product?productID=${productID}`;
+        }
+
     </script>
 
     <script>
@@ -429,11 +434,6 @@
                 console.error('Failed to load products:', err);
             }
         }
-
-            function redirectToPage(productID) {
-    // Redirect to the product page using the productID
-                window.location.href = `/product?productID=${productID}`;
-            }
 
     
         window.onload = loadProducts;
