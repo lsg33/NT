@@ -25,6 +25,7 @@ app.get('/user', async (req, res) => {
     console.log('Request received for username:', req.query.username);
 
     if (!username) {
+      console.log('username required');
         return res.status(400).json({ error: 'Username is required' });
     }
 
@@ -33,11 +34,14 @@ app.get('/user', async (req, res) => {
 
         if (user) {
             res.json(user);
+            console.log('Sending JSON:', user);
         } else {
             res.status(404).json({ error: 'User not found' });
+            console.log('user not found');
         }
     } catch (err) {
         res.status(500).json({ error: 'Error fetching user data' });
+        console.log('error fetching data');
     }
 });
 
