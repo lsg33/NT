@@ -136,6 +136,17 @@
             padding: 0.5rem 1rem;
             cursor: pointer;
         }
+        
+        .friendsbutton {
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 0 1rem 1rem 0;
+            flex-shrink: 0;
+            text-align: center;
+            width: 150px;
+        }
 
         .product button:hover {
             background-color: #555;
@@ -274,7 +285,7 @@
                         <p>Tag Ratio: <span id="tagRatio">700</span></p>
                         <p>Playtime: <span id="playTime">300HR</span></p>
                         <input type="hidden" class="friendID" value="lsg">
-                        <button onclick="redirectPage(this)">View user</button>
+                        <button class="friendsbutton" onclick="redirectPage(this)">View user</button>
                     </li>
                     <li class="friend">
                         <img src="profile-pic2.jpg" alt="YM">
@@ -283,7 +294,7 @@
                         <p>Tag Ratio: <span id="tagRatio">700</span></p>
                         <p>Playtime: <span id="playTime">300HR</span></p>
                         <input type="hidden" class="friendID" value="trashcan">
-                        <button onclick="redirectPage(this)">View user</button>
+                        <button class="friendsbutton" onclick="redirectPage(this)">View user</button>
                     </li>
                     <li class="friend">
                         <img src="profile-pic2.jpg" alt="YM">
@@ -292,7 +303,7 @@
                         <p>Tag Ratio: <span id="tagRatio">70</span></p>
                         <p>Playtime: <span id="playTime">3020HR</span></p>
                         <input type="hidden" class="friendID" value="Error">
-                        <button onclick="redirectPage(this)">View user</button>
+                        <button class="friendsbutton" onclick="redirectPage(this)">View user</button>
                     </li>
                 </ul>
             </div>
@@ -340,7 +351,7 @@
             const friendID = friendDiv.querySelector('.friendID').value;
             
             // Redirect to the product page using the productID
-            window.location.href = `/user?friendID=${friendID}`;
+            window.location.href = `/username?friendID=${friendID}`;
         }
     </script>
 
