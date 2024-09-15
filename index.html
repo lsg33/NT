@@ -313,7 +313,7 @@
     <script>
         function search() {
             const searchInput = document.getElementById('search-input').value;
-            alert('Searching for: ' + searchInput);
+            window.location.href = `/search?searchIM=${encodeURIComponent(searchInput)}`;
         }
 
         function redirectToPage(button) {
