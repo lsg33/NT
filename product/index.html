@@ -289,27 +289,39 @@
         async function fetchUserData() {
             // Extract username from URL query parameter
             const urlParams = new URLSearchParams(window.location.search);
-            const product = urlParams.get('product');
+            const username = urlParams.get('product');
             if (!product) {
-                console.error('Username parameter is missing');
+                alert('product parameter is missing');
                 return;
             }
             try {
-                const response = await fetch(`/api/product?product=${productP}`);
+                const response = await fetch(`/api/product?product=${productID}`);
                 if (!response.ok) {
-                    throw new Error('User data not found');
-
+                    throw new Error('Users data not found');
+                    ErrorDataNotFound();
                 }
                 const productData = await response.json();
-
+                DataFound(productData);
             } catch (error) {
-                console.error('Error fetching user data:', error);
-
+                alert('Error fetching user data:', error);
+                ErrorFetchingData();
             }
         }
 
         // Call fetchUserData to initiate data fetching and UI update
         fetchUserData();
+    </script>
+
+    <script>
+        function ErrorFetchingData(){
+            document.getElementById('THeirUerName').textContent = 'Error Loading Username';
+        }
+        function ErrorDataNotFound(){
+            document.getElementById('THeirUerName').textContent = 'User not found';
+        }
+        function DataFound(userData){
+            document.getElementById('THeirUerName').textContent = userData.username;
+        }
     </script>
 
     <script src="https://js.stripe.com/v3/"></script>
