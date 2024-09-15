@@ -44,6 +44,7 @@
                 if (data.success) {
                     document.getElementById('authenticateText').textContent = 'Authentication successful';
                     console.log("Authentication successful:", data);
+                    window.location.href = `/`
                 } else {
                     document.getElementById('authenticateText').textContent = 'Authentication failed';
                     console.error("Authentication failed:", data.message);
