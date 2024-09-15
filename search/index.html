@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+        .container {
+            width: 55%; /* 10% bigger */
+            background-color: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+        .search-bar {
+            width: 80%; /* Shorter search bar */
+            padding: 10px;
+            margin-bottom: 20px;
+            font-size: 18px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            display: block;
+            margin: 0 auto; /* Centered */
+        }
+        .tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        .tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            background-color: #eee;
+            border-radius: 5px 0 0 5px;
+            transition: background-color 0.3s ease;
+            flex: 1;
+            text-align: center;
+            font-size: 16px;
+        }
+        .tab + .tab {
+            border-radius: 0 5px 5px 0; /* Rounded on the right */
+            border-left: 1px solid white; /* Remove space and add border between */
+        }
+        .tab.active {
+            background-color: #007bff;
+            color: white;
+        }
+        .content {
+            display: none;
+        }
+        .content.active {
+            display: block;
+        }
+        .list-item {
+            margin-bottom: 10px;
+            padding: 10px;
+            background-color: #f0f0f0;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Search Bar -->
+        <input type="text" id="searchInput" placeholder="Search..." class="search-bar" onkeyup="searchItems()">
+        
+        <!-- Navigation Tabs -->
+        <div class="tabs">
+            <div class="tab active" id="usersTab" onclick="switchTab('users')">Users</div>
+            <div class="tab" id="productsTab" onclick="switchTab('products')">Products</div>
+        </div>
+        
+        <!-- Content for Users -->
+        <div class="content active" id="usersContent">
+            <div class="list-item">User 1</div>
+            <div class="list-item">User 2</div>
+            <div class="list-item">User 3</div>
+            <div class="list-item">User 4</div>
+        </div>
+        
+        <!-- Content for Products -->
+        <div class="content" id="productsContent">
+            <div class="list-item">Product 1</div>
+            <div class="list-item">Product 2</div>
+            <div class="list-item">Product 3</div>
+            <div class="list-item">Product 4</div>
+        </div>
+    </div>
+
+    <script>
+        // Function to switch between tabs
+        function switchTab(tab) {
+            var usersTab = document.getElementById('usersTab');
+            var productsTab = document.getElementById('productsTab');
+            var usersContent = document.getElementById('usersContent');
+            var productsContent = document.getElementById('productsContent');
+            
+            if (tab === 'users') {
+                usersTab.classList.add('active');
+                productsTab.classList.remove('active');
+                usersContent.classList.add('active');
+                productsContent.classList.remove('active');
+            } else {
+                productsTab.classList.add('active');
+                usersTab.classList.remove('active');
+                productsContent.classList.add('active');
+                usersContent.classList.remove('active');
+            }
+        }
+
+        // Function to filter items in the current active tab based on search input
+        function searchItems() {
+            var input = document.getElementById('searchInput').value.toLowerCase();
+            var activeContent = document.querySelector('.content.active');
+            var items = activeContent.getElementsByClassName('list-item');
+            
+            for (var i = 0; i < items.length; i++) {
+                var itemText = items[i].textContent || items[i].innerText;
+                if (itemText.toLowerCase().indexOf(input) > -1) {
+                    items[i].style.display = '';
+                } else {
+                    items[i].style.display = 'none';
+                }
+            }
+        }
+    </script>
+
+</body>
+</html>
