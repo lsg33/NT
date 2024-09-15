@@ -15,8 +15,8 @@ const userSchema = new mongoose.Schema({
 
 const User = mongoose.model('User', userSchema);
 
-app.post('/api/auth/oculus', (req, res) => {
-  const { oculusId, accessToken } = req.body;
+app.get('/api/auth/oculus', (req, res) => {
+  const { oculusId, accessToken } = req.query;
 
   PlayFabClient.LoginWithOculus({
     CreateAccount: true,
