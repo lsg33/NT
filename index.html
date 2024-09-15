@@ -260,33 +260,17 @@
             <h2 style="text-align: center;">WELCOME TO NOVA TAG</h2>
             <p style="text-align: center;">Nova Tag is a VR game on Meta Quest.</p>
             <h2>Our Products</h2>
-            <div class="product">
-                <img src="10000.jpg" alt="NR">
-                <h3>10000 Nova Roxx</h3>
-                <p>Use this to buy cosmetics and packs ingame.</p>
-                 <input type="hidden" class="productID" value="10000NR">
-                <button onclick="redirectToPage(this)">View item</button>
-            </div>
-            <div class="product">
-                <img src="product2.jpg" alt="NR">
-                <h3>5000 Nova Roxx</h3>
-                <p>Use this to buy cosmetics and packs ingame.</p>
-                <input type="hidden" class="productID" value="5000NR">
-                <button onclick="redirectToPage(this)">View item</button>
-            </div>
-            <div class="product">
-                <img src="product1.jpg" alt="NR">
-                <h3>1000 Nova Roxx</h3>
-                <p>Use this to buy cosmetics and packs ingame.</p>
-                <input type="hidden" class="productID" value="1000NR">
-                <button onclick="redirectToPage(this)">View item</button>
-            </div>
-            <div class="product">
-                <img src="product1.jpg" alt="Pck">
-                <h3>Seasonal Pack</h3>
-                <p>This is a cosmetic pack.</p>
-                <input type="hidden" class="productID" value="SP2024">
-                <button onclick="redirectToPage(this)">View item</button>
+            <div id="product-list" class="product-list">
+                <template id="product-template">
+                  <div class="product">
+                    <h3 class="product-name"></h3>
+                    <img class="product-image" src="" alt="">
+                    <p class="product-description"></p>
+                    <p class="product-price"></p>
+                    <input type="hidden" class="productID" value="">
+                    <button class="view-item-btn">View item</button>
+                  </div>
+                </template>
             </div>
 
             <div class="suggested-friends">
@@ -427,6 +411,39 @@
         }
     });
 </script>
+
+        <script>
+        async function loadProducts() {
+            try {
+                const response = await fetch('https://1d62c3c9-d69b-4407-9833-107c85ed3bd9-00-3pamqtk5wwj5h.kirk.replit.dev/products'); // Fetch from your API endpoint
+                const products = await response.json();
+                const container = document.getElementById('product-list');
+                const template = document.getElementById('product-template').content;
+                
+                products.forEach(product => {
+                    const productDiv = template.cloneNode(true);
+                    productDiv.querySelector('.product-image').src = product.image; // Set the image URL
+                    productDiv.querySelector('.product-image').alt = product.name; // Set alt text to the product name
+                    productDiv.querySelector('.product-name').textContent = product.name;
+                    productDiv.querySelector('.product-price').textContent = '$' + product.price + '.99';
+                    productDiv.querySelector('.product-description').textContent = product.description;
+                    productDiv.querySelector('.productID').value = product.productID;
+                    
+                    // Set the button onclick event to redirect to the product page
+                    productDiv.querySelector('.view-item-btn').onclick = function() {
+                        redirectToPage(product.productID);  // Assuming `redirectToPage` takes the product ID
+                    };
+        
+                    container.appendChild(productDiv);
+                });
+            } catch (err) {
+                console.error('Failed to load products:', err);
+            }
+        }
+
+    
+        window.onload = loadProducts;
+    </script>
 
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4231550133692753"
      crossorigin="anonymous"></script>
