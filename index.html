@@ -15,6 +15,21 @@
             flex-direction: column;
             min-height: 100vh;
         }
+        
+        body.light-mode {
+            background-color: #ffffff;
+            color: #000000;
+        }
+
+        body.dark-mode {
+            background-color: #1e1e1e;
+            color: #ffffff;
+        }
+
+        body.dark-mode .mainS {
+            background-color: #333; /* Gray background for dark mode */
+            color: #fff; /* White text for dark mode */
+        }
 
         header {
             background-color: #333;
@@ -240,7 +255,7 @@
         </nav>
     </header>
 
-    <main id="main-content" style="display: none;">
+    <main class="mainS" id="main-content" style="display: none;">
         <section id="home" class="content-section">
             <h2 style="text-align: center;">WELCOME TO NOVA TAG</h2>
             <p style="text-align: center;">Nova Tag is a VR game on Meta Quest.</p>
@@ -389,6 +404,26 @@
             enableMainContent();
         } else {
             showNotLoggedInMessage();
+        }
+    });
+</script>
+
+<script>
+    function getCookie(name) {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(';').shift();
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const darkMode = getCookie('darkMode');
+
+        if (darkMode === 'true') {
+                document.body.classList.remove('light-mode');
+                document.body.classList.add('dark-mode');
+        } else {
+                document.body.classList.remove('dark-mode');
+                document.body.classList.add('light-mode');
         }
     });
 </script>
