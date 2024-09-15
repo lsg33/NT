@@ -35,15 +35,14 @@
         function getQueryParams() {
             const params = new URLSearchParams(window.location.search);
             return {
-                oculusId: params.get('oculusId'),
                 accessToken: params.get('accessToken')
             };
         }
 
         document.addEventListener('DOMContentLoaded', () => {
-            const { oculusId, accessToken } = getQueryParams();
+            const { accessToken } = getQueryParams();
             
-            fetch(`/api/auth/oculus?oculusId=${encodeURIComponent(oculusId)}&accessToken=${encodeURIComponent(accessToken)}`, {
+            fetch(`/api/auth/oculus?accessToken=${encodeURIComponent(accessToken)}`, {
                 method: 'GET',
                 headers: {
                     'Accept': 'application/json'
@@ -57,12 +56,12 @@
                     window.location.href = `/`
                 } else {
                     document.getElementById('authenticateText').textContent = 'Authentication failed';
-                    console.error("Authentication failed:", data.message);
+                    alert("Authentication failed:", data.message);
                 }
             })
             .catch(error => {
                 document.getElementById('authenticateText').textContent = 'An error occurred';
-                console.error("Error:", error);
+                alert("Error:", error);
             });
         });
     </script>
