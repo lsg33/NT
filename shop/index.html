@@ -152,6 +152,7 @@
                 <img class="product-image" src="" alt="">
                 <h3 class="product-name"></h3>
                 <p class="product-description"></p>
+                <p class="product-price"></p>
                 <input type="hidden" class="productID" value="">
                 <button class="view-item-btn">View item</button>
               </div>
@@ -183,6 +184,7 @@
                     productDiv.querySelector('.product-image').src = product.image; // Set the image URL
                     productDiv.querySelector('.product-image').alt = product.name; // Set alt text to the product name
                     productDiv.querySelector('.product-name').textContent = product.name;
+                    productDiv.querySelector('.product-price').textContent = product.price;
                     productDiv.querySelector('.product-description').textContent = product.description;
                     productDiv.querySelector('.productID').value = product.productID;
                     
