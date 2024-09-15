@@ -289,38 +289,33 @@
         async function fetchUserData() {
             // Extract username from URL query parameter
             const urlParams = new URLSearchParams(window.location.search);
-            const username = urlParams.get('product');
-            if (!product) {
-                alert('product parameter is missing');
+            const productID = urlParams.get('productID');
+            console.log('Fetching user data for username:', productID);
+            
+            if (!productID) {
+                console.error('productID parameter is missing');
                 return;
             }
             try {
-                const response = await fetch(`/api/product?product=${productID}`);
+                const response = await fetch(`https://1d62c3c9-d69b-4407-9833-107c85ed3bd9-00-3pamqtk5wwj5h.kirk.replit.dev/product?productID=${encodeURIComponent(productID)}`);
                 if (!response.ok) {
-                    throw new Error('Users data not found');
-                    ErrorDataNotFound();
+                    throw new Error('product data not found');
                 }
                 const productData = await response.json();
-                DataFound(productData);
+                DataFound(productData)
+                console.log('User data:', productData);
             } catch (error) {
-                alert('Error fetching user data:', error);
-                ErrorFetchingData();
+                console.error('Error fetching product Data:', error);
             }
         }
-
-        // Call fetchUserData to initiate data fetching and UI update
+        
         fetchUserData();
     </script>
-
     <script>
-        function ErrorFetchingData(){
-            document.getElementById('THeirUerName').textContent = 'Error Loading Username';
-        }
-        function ErrorDataNotFound(){
-            document.getElementById('THeirUerName').textContent = 'User not found';
-        }
-        function DataFound(userData){
-            document.getElementById('THeirUerName').textContent = userData.username;
+        function DataFound(productData){
+            document.getElementById('product-name').textContent = productData.name;
+            document.getElementById('price').textContent = productData.price;
+            document.getElementById('fstdesc').textContent = productData.description;
         }
     </script>
 
