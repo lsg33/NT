@@ -388,9 +388,10 @@
             // Extract username from URL query parameter
             const urlParams = new URLSearchParams(window.location.search);
             const username = urlParams.get('username');
+            console.log('Fetching user data for username:', username);
+            
             if (!username) {
                 console.error('Username parameter is missing');
-                alert(`Username parameter is missing`);
                 return;
             }
             try {
