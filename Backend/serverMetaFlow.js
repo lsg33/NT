@@ -22,6 +22,7 @@ app.use(express.static('public'));
 // Route to fetch user data
 app.get('/user', async (req, res) => {
     const username = req.query.username;
+    console.log('Request received for username:', req.query.username);
 
     if (!username) {
         return res.status(400).json({ error: 'Username is required' });
