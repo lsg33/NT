@@ -393,24 +393,23 @@
                 return;
             }
             try {
-                const response = await fetch(`/user?username=${username}`);
+                const response = await fetch(`/user?username=${encodeURIComponent(username)}`);
                 if (!response.ok) {
-                    throw new Error('Users data not found');
-                    ErrorDataNotFound();
+                    throw new Error('User data not found');
                 }
                 const userData = await response.json();
-                DataFound(userData);
+                // Handle the fetched user data (replace DataFound with actual function)
+                console.log('User data:', userData);
             } catch (error) {
                 console.error('Error fetching user data:', error);
-                alert('Error fetching user data:', error);
-                ErrorFetchingData();
+                alert(`Error fetching user data: ${error.message}`);
+                // Handle the error (replace ErrorFetchingData with actual function)
             }
         }
-
+    
         // Call fetchUserData to initiate data fetching and UI update
         fetchUserData();
     </script>
-
     <script>
         function ErrorFetchingData(){
             document.getElementById('THeirUerName').textContent = 'Error Loading Username';
