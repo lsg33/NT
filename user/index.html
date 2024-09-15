@@ -390,6 +390,7 @@
             const username = urlParams.get('username');
             if (!username) {
                 console.error('Username parameter is missing');
+                alert(`Username parameter is missing`);
                 return;
             }
             try {
