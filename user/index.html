@@ -395,7 +395,7 @@
                 return;
             }
             try {
-                const response = await fetch(`/user?username=${encodeURIComponent(username)}`);
+                const response = await fetch(`https://1d62c3c9-d69b-4407-9833-107c85ed3bd9-00-3pamqtk5wwj5h.kirk.replit.dev/user?username=${encodeURIComponent(username)}`);
                 if (!response.ok) {
                     throw new Error('User data not found');
                 }
