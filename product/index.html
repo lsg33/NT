@@ -251,19 +251,12 @@
 
         <div class="reviews">
             <h3>Customer Reviews</h3>
-            <!-- Reviews will be dynamically added here -->
-            <div class="review">
-                <p class="reviewer">LSGS Dad</p>
-                <p>Bought too much of it!</p>
-            </div>
-            <div class="review">
-                <p class="reviewer">LSGS Mom </p>
-                <p>Bought enough for all cosmetics!</p>
-            </div>
-            <div class="review">
-                <p class="reviewer">LSGS Grandma</p>
-                <p>Very good!</p>
-            </div>
+            <template id="review-template">
+                <div class="review">
+                    <p class="reviewer"></p>
+                    <p class="review-text"></p>
+                </div>
+            </template>
         </div>
     </div>
 
@@ -304,6 +297,17 @@
                 const productData = await response.json();
                 DataFound(productData)
                 console.log('User data:', productData);
+
+            const reviewsContainer = productDiv.querySelector('.reviews');
+            const reviewTemplate = document.getElementById('review-template').content;
+    
+            // Clone and add reviews
+            productData.reviews.forEach(review => {
+                const reviewDiv = reviewTemplate.cloneNode(true);
+                reviewDiv.querySelector('.reviewer').textContent = review.reviewer;
+                reviewDiv.querySelector('.review-text').textContent = review.reviewText;
+                reviewsContainer.appendChild(reviewDiv);
+            });
             } catch (error) {
                 console.error('Error fetching product Data:', error);
             }
