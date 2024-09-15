@@ -240,7 +240,7 @@
         </nav>
     </header>
 
-    <main>
+    <main id="main-content">
         <section id="home" class="content-section">
             <h2 style="text-align: center;">WELCOME TO NOVA TAG</h2>
             <p style="text-align: center;">Nova Tag is a VR game on Meta Quest.</p>
@@ -352,6 +352,10 @@
             
             // Redirect to the product page using the productID
             window.location.href = `/user?username=${friendID}`;
+        }
+        
+        function redirectloginPage() {
+            window.location.href = `https://www.oculus.com/authorize?response_type=code&client_id=7238920182799088&redirect_uri=https://novatag.lol/Login&scope=email%20profile&state=monkeyL`;
         }
     </script>
 
