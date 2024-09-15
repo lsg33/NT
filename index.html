@@ -273,15 +273,17 @@
                         <p>Tags: 50</p>
                         <p>Tag Ratio: 3.4%</p>
                         <p>Playtime: 100h</p>
-                        <button class="friend">Add Friend</button>
+                        <input type="hidden" class="friendID" value="lsg">
+                        <button class="friend"onclick="redirectPage(this)">View item</button>
                     </li>
                     <li class="friend">
                         <img src="profile-pic2.jpg" alt="YM">
-                        <h4>Drmep</h4>
+                        <h4>Trashcan</h4>
                         <p>Tags: 753</p>
                         <p>Tag Ratio: 5.4%</p>
                         <p>Playtime: 150h</p>
-                        <button class="friend">Add Friend</button>
+                        <input type="hidden" class="friendID" value="trashcan">
+                        <button class="friend"onclick="redirectPage(this)">View item</button>
                     </li>
                     <li class="friend">
                         <img src="profile-pic2.jpg" alt="YM">
@@ -289,7 +291,8 @@
                         <p>Tags: 2M</p>
                         <p>Tag Ratio: = 0%</p>
                         <p>Playtime: 1500h</p>
-                        <button class="friend">Add Friend</button>
+                        <input type="hidden" class="friendID" value="Error">
+                        <button class="friend"onclick="redirectPage(this)">View item</button>
                     </li>
                 </ul>
             </div>
@@ -325,6 +328,16 @@
             
             // Redirect to the product page using the productID
             window.location.href = `/product?productID=${productID}`;
+        }
+        function redirectPage(button) {
+            // Find the closest parent '.product' element
+            const friendDiv = button.closest('.friend');
+            
+            // Retrieve the productID from the hidden input inside the parent div
+            const friendID = friendDiv.querySelector('.friendID').value;
+            
+            // Redirect to the product page using the productID
+            window.location.href = `/user?friendID=${friendID}`;
         }
      </script>
 
