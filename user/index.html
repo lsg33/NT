@@ -281,8 +281,8 @@
                 <h3>Stats</h3>
                 <ul class="stats-list">
                     <li>Tags: <span id="posts-count">120</span></li>
-                    <li>Tag ratio: <span id="likes-count">450</span></li>
-                    <li>Playtime: <span id="comments-count">300</span></li>
+                    <li>Tag ratio: <span id="likes-count">450</span>%</li>
+                    <li>Playtime: <span id="comments-count">300</span>HR</li>
                 </ul>
             </div>
         </section>
@@ -427,10 +427,10 @@
         }
         function DataFound(userData){
             document.getElementById('THeirUerName').textContent = userData.username;
-            document.getElementById('friends-count').textContent = 'temp, dev messed it up smh';
-            document.getElementById('posts-count').textContent = 'Error';
-            document.getElementById('likes-count').textContent = 'Error';
-            document.getElementById('comments-count').textContent = 'Error';
+            document.getElementById('friends-count').textContent = userData.friends;
+            document.getElementById('posts-count').textContent = userData.tags;
+            document.getElementById('likes-count').textContent = userData.tagratio;
+            document.getElementById('comments-count').textContent = userData.playtime;
         }
     </script>
 
