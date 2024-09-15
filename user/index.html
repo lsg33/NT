@@ -280,9 +280,9 @@
             <div class="stats-section">
                 <h3>Stats</h3>
                 <ul class="stats-list">
-                    <li>Tags: <span id="posts-count">120</span></li>
-                    <li>Tag ratio: <span id="likes-count">450</span>%</li>
-                    <li>Playtime: <span id="comments-count">300</span>HR</li>
+                    <li>Tags: <span id="posts-count">0</span></li>
+                    <li>Tag ratio: <span id="likes-count">0</span></li>
+                    <li>Playtime: <span id="comments-count">0</span></li>
                 </ul>
             </div>
         </section>
@@ -429,8 +429,8 @@
             document.getElementById('THeirUerName').textContent = userData.username;
             document.getElementById('friends-count').textContent = userData.friends;
             document.getElementById('posts-count').textContent = userData.tags;
-            document.getElementById('likes-count').textContent = userData.tagratio;
-            document.getElementById('comments-count').textContent = userData.playtime;
+            document.getElementById('likes-count').textContent = userData.tagratio + "%";
+            document.getElementById('comments-count').textContent = userData.playtime + "HR";
         }
     </script>
 
