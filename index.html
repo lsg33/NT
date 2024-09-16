@@ -218,57 +218,6 @@
             border-radius: 8px;
             text-align: center;
         }
-                /* Bell Icon Button Styles */
-        .bell-container {
-            position: absolute;
-            right: 1rem;
-            top: 1rem;
-            display: flex;
-            align-items: center;
-        }
-
-        .bell-button {
-            background-color: transparent;
-            border: none;
-            cursor: pointer;
-            position: relative;
-            font-size: 1.5rem;
-            color: white;
-        }
-
-        .bell-button:focus {
-            outline: none;
-        }
-
-        .bell-button .bell-icon {
-            font-size: 1.5rem;
-        }
-
-        .notification-menu {
-            display: none;
-            position: absolute;
-            top: 100%;
-            right: 0;
-            background-color: #444;
-            min-width: 200px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            z-index: 1;
-        }
-
-        .notification-menu a {
-            display: block;
-            padding: 1rem;
-            color: white;
-            text-decoration: none;
-        }
-
-        .notification-menu a:hover {
-            background-color: #555;
-        }
-
-        .bell-button:hover .notification-menu {
-            display: block;
-        }
     </style>
 </head>
 
@@ -305,16 +254,6 @@
                 <li><a href="/settings">Settings</a></li>
             </ul>
         </nav>
-         <div class="bell-container">
-            <button class="bell-button">
-                <span class="bell-icon">&#128276;</span>
-                <div class="notification-menu">
-                    <a href="#">Notification 1</a>
-                    <a href="#">Notification 2</a>
-                    <a href="#">Notification 3</a>
-                </div>
-            </button>
-        </div>
     </header>
 
     <main class="mainS" id="main-content" style="display: none;">
