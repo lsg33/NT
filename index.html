@@ -374,8 +374,8 @@
         const parts = value.split(`; ${name}=`);
         if (parts.length === 2) return parts.pop().split(';').shift();
     }
-
-    document.addEventListener('DOMContentLoaded', () => {
+        
+    function startLoginCheck() {
         const isLoggedIn = getCookie('isLoggedIn');
 
         if (isLoggedIn === 'true') {
@@ -383,7 +383,9 @@
         } else {
             showNotLoggedInMessage();
         }
-    });
+    }
+        
+    window.onload = startLoginCheck;
 </script>
 
 <script>
@@ -393,7 +395,7 @@
         if (parts.length === 2) return parts.pop().split(';').shift();
     }
 
-    document.addEventListener('DOMContentLoaded', () => {
+    function startColorCheck() {
         const darkMode = getCookie('darkMode');
 
         if (darkMode === 'true') {
@@ -403,7 +405,10 @@
                 document.body.classList.remove('dark-mode');
                 document.body.classList.add('light-mode');
         }
-    });
+    }
+
+
+    window.onload = startColorCheck;
 </script>
 
         <script>
