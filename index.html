@@ -121,18 +121,6 @@
         }
 
         .product {
-            border: 1px solid #ddd;
-            padding: 1rem;
-            margin: 1rem 0;
-            text-align: center;
-        }
-
-        .product img {
-            max-width: 100%;
-            height: auto;
-        }
-        
-        .product-list {
             background-color: white;
             border: 1px solid #ddd;
             border-radius: 8px;
@@ -141,6 +129,18 @@
             flex-shrink: 0;
             text-align: center;
             width: 150px;
+        }
+
+        .product img {
+            max-width: 100%;
+            height: auto;
+        }
+        
+        .product-list {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            overflow-x: scroll;
         }
 
         .product h3 {
