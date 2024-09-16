@@ -162,7 +162,7 @@
     <main>
         <section class="profile">
             <div class="profile-header">
-                <img src="profile-pic.jpg" alt="Profile Picture" class="profile-pic">
+                <img id="pfp" src=" " alt="Profile Picture" class="profile-pic">
                 <div class="profile-info">
                     <h2 id="displayName">null</h2>
                     <p>Username: <span id="usernames"></p>
@@ -233,6 +233,7 @@
         }
         function DataFound(userData){
             document.getElementById('usernames').textContent = userData.username;
+            document.getElementById('pfp').src = userData.image;
             document.getElementById('displayName').textContent = userData.displayName;
             document.getElementById('friends-count').textContent = userData.friends;
             document.getElementById('posts-count').textContent = userData.tags;
