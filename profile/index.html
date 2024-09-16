@@ -164,7 +164,7 @@
             <div class="profile-header">
                 <img src="profile-pic.jpg" alt="Profile Picture" class="profile-pic">
                 <div class="profile-info">
-                    <h2>Your Name</h2>
+                    <h2 id="usernames">Your Name</h2>
                     <p>Username: Im You</p>
                     <p>Friends: <span id="friends-count">250</span></p>
                 </div>
@@ -232,7 +232,7 @@
             // Implement search logic here
         }
         function DataFound(userData){
-            document.getElementById('THeirUerName').textContent = userData.username;
+            document.getElementById('usernames').textContent = userData.username;
             document.getElementById('friends-count').textContent = userData.friends;
             document.getElementById('posts-count').textContent = userData.tags;
             document.getElementById('likes-count').textContent = userData.tagratio + "%";
