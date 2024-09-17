@@ -279,7 +279,7 @@
                 const container = document.getElementById('user-list');
                 const template = document.getElementById('user-template').content;
                 
-                products.forEach(product => {
+                users.forEach(users => {
                     const userDiv = template.cloneNode(true);
                     userDiv.querySelector('.user-image').src = users.image;
                     userDiv.querySelector('.user-name').textContent = users.username; // Set the image URL
