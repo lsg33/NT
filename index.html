@@ -426,22 +426,23 @@
                 
                 users.forEach(user => {
                     const userDiv = template.cloneNode(true);
-                    userDiv.querySelector('.user-image').src = users.image;
-                    userDiv.querySelector('.user-name').textContent = users.username; // Set the image URL
-                    userDiv.querySelector('.user-playTime').textContent = users.playTime; // Set alt text to the product name
-                    userDiv.querySelector('.user-tags').textContent = users.tags;
-                    userDiv.querySelector('.user-tagratio').textContent = users.tagratio;
+                    userDiv.querySelector('.user-image').src = user.image; // Set the image URL
+                    userDiv.querySelector('.user-name').textContent = user.username; // Set the username
+                    userDiv.querySelector('.user-playTime').textContent = user.playTime; // Set the playTime
+                    userDiv.querySelector('.user-tags').textContent = user.tags; // Set the tags
+                    userDiv.querySelector('.user-tagratio').textContent = user.tagratio; // Set the tag ratio
                     
                     userDiv.querySelector('.friendsbutton').onclick = function() {
-                        redirectToPage(productData.productID);
+                        redirectToPage(user.userID); // Redirect using the user's ID
                     };
         
                     container.appendChild(userDiv);
                 });
             } catch (err) {
-                alert('Failed to load products:', err);
+                alert('Failed to load users:', err);
             }
         }
+
 
     
         window.onload = loadProducts;
