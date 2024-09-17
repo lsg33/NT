@@ -277,34 +277,15 @@
             <div class="suggested-friends">
                 <h3>Suggested Friends</h3>
                 <ul class="friends-list" id="friends-list">
-                    <!-- Example friend -->
-                    <li class="friend">
-                        <img src="profile-pic1.jpg" alt="LSG">
-                        <h4>LSG</h4>
-                        <p>Tags: <span id="tags">340</span></p>
-                        <p>Tag Ratio: <span id="tagRatio">700</span></p>
-                        <p>Playtime: <span id="playTime">300HR</span></p>
-                        <input type="hidden" class="friendID" value="lsg">
-                        <button class="friendsbutton" onclick="redirectPage(this)">View user</button>
-                    </li>
-                    <li class="friend">
-                        <img src="profile-pic2.jpg" alt="YM">
-                        <h4>Trashcan</h4>
-                        <p>Tags: <span id="tags">3000</span></p>
-                        <p>Tag Ratio: <span id="tagRatio">700</span></p>
-                        <p>Playtime: <span id="playTime">300HR</span></p>
-                        <input type="hidden" class="friendID" value="trashcan">
-                        <button class="friendsbutton" onclick="redirectPage(this)">View user</button>
-                    </li>
-                    <li class="friend">
-                        <img src="profile-pic2.jpg" alt="YM">
-                        <h4>Monke</h4>
-                        <p>Tags: <span id="tags">400</span></p>
-                        <p>Tag Ratio: <span id="tagRatio">70</span></p>
-                        <p>Playtime: <span id="playTime">3020HR</span></p>
-                        <input type="hidden" class="friendID" value="Error">
-                        <button class="friendsbutton" onclick="redirectPage(this)">View user</button>
-                    </li>
+                <template id="user-template">
+                    <img src=" " alt="LSG">
+                    <h4 class="user-name"></h4>
+                    <p>Tags: <span class="user-tags"></span></p>
+                    <p>Tag Ratio: <span class="user-tagratio"></span></p>
+                    <p>Playtime: <span class="user-playTime"></span></p>
+                    <input type="hidden" class="friendID" value="">
+                    <button class="friendsbutton">View user</button>
+                </template>
                 </ul>
             </div>
         </section>
@@ -432,6 +413,32 @@
                 });
             } catch (err) {
                 console.error('Failed to load products:', err);
+            }
+        }
+
+        async function loadUsers() {
+            try {
+                const response = await fetch('https://1d62c3c9-d69b-4407-9833-107c85ed3bd9-00-3pamqtk5wwj5h.kirk.replit.dev/users'); // Fetch from your API endpoint
+                const users = await response.json();
+                const container = document.getElementById('user-list');
+                const template = document.getElementById('user-template').content;
+                
+                users.forEach(user => {
+                    const userDiv = template.cloneNode(true);
+                    userDiv.querySelector('.user-image').src = users.image;
+                    userDiv.querySelector('.user-name').textContent = users.username; // Set the image URL
+                    userDiv.querySelector('.user-playTime').textContent = users.playTime; // Set alt text to the product name
+                    userDiv.querySelector('.user-tags').textContent = users.tags;
+                    userDiv.querySelector('.user-tagratio').textContent = users.tagratio;
+                    
+                    userDiv.querySelector('.friendsbutton').onclick = function() {
+                        redirectToPage(productData.productID);
+                    };
+        
+                    container.appendChild(userDiv);
+                });
+            } catch (err) {
+                alert('Failed to load products:', err);
             }
         }
 
