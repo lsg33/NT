@@ -410,6 +410,7 @@
                     };
         
                     container.appendChild(productDiv);
+                    loadUsers();
                 });
             } catch (err) {
                 console.error('Failed to load products:', err);
@@ -444,7 +445,6 @@
 
     
         window.onload = loadProducts;
-        window.onload = loadUsers;
     </script>
 
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4231550133692753"
