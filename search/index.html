@@ -67,6 +67,94 @@
             background-color: #f0f0f0;
             border-radius: 5px;
         }
+
+                .product button:hover {
+            background-color: #555;
+        }
+        .product {
+            border: 1px solid #ddd;
+            padding: 1rem;
+            margin: 1rem 0;
+            text-align: center;
+        }
+
+        .product img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .product h3 {
+            margin: 0.5rem 0;
+        }
+
+        .product button {
+            background-color: #333;
+            color: white;
+            border-radius: 4px;
+            border: none;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+        }
+
+        .friend button {
+            background-color: #333;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+        }
+        
+        .friendsbutton {
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 0 1rem 1rem 0;
+            flex-shrink: 0;
+            text-align: center;
+            width: 150px;
+        }
+
+        .product button:hover {
+            background-color: #555;
+        }
+
+        .suggested-friends {
+            margin-top: 2rem;
+        }
+
+        .friends-list {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            overflow-x: scroll;
+        }
+
+        .friend {
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 0 1rem 1rem 0;
+            flex-shrink: 0;
+            text-align: center;
+            width: 150px;
+        }
+
+        .friend img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-bottom: 1rem;
+        }
+
+        .friend h4 {
+            margin: 0.5rem 0;
+        }
+
+        .friend p {
+            margin: 0.2rem 0;
+        }
     </style>
 </head>
 <body>
@@ -83,18 +171,33 @@
         
         <!-- Content for Users -->
         <div class="content active" id="usersContent">
-            <div class="list-item">User 1</div>
-            <div class="list-item">User 2</div>
-            <div class="list-item">User 3</div>
-            <div class="list-item">User 4</div>
+            <div id="user-list" class="user-list">
+                <template id="user-template">
+                    <img src=" " alt="LSG">
+                    <h4 class="user-name"></h4>
+                    <p>Tags: <span class="user-tags"></span></p>
+                    <p>Tag Ratio: <span class="user-tagratio"></span></p>
+                    <p>Playtime: <span class="user-playTime"></span></p>
+                    <input type="hidden" class="friendID" value="">
+                    <button class="friendsbutton">View user</button>
+                </template>
+            </div>
         </div>
         
         <!-- Content for Products -->
         <div class="content" id="productsContent">
-            <div class="list-item">Product 1</div>
-            <div class="list-item">Product 2</div>
-            <div class="list-item">Product 3</div>
-            <div class="list-item">Product 4</div>
+            <div id="product-list" class="product-list">
+                <template id="product-template">
+                    <div class="product">
+                      <h3 class="product-name"></h3>
+                      <img class="product-image" src="" alt="">
+                      <p class="product-description"></p>
+                      <p class="product-price"></p>
+                      <input type="hidden" class="productID" value="">
+                      <button class="view-item-btn">View item</button>
+                    </div>
+                </template>
+            </div>
         </div>
     </div>
 
@@ -111,11 +214,13 @@
                 productsTab.classList.remove('active');
                 usersContent.classList.add('active');
                 productsContent.classList.remove('active');
+                loadUsers();
             } else {
                 productsTab.classList.add('active');
                 usersTab.classList.remove('active');
                 productsContent.classList.add('active');
                 usersContent.classList.remove('active');
+                loadProducts();
             }
         }
 
@@ -132,6 +237,61 @@
                 } else {
                     items[i].style.display = 'none';
                 }
+            }
+        }
+    </script>
+
+        <script>
+        async function loadProducts() {
+            try {
+                const response = await fetch('https://1d62c3c9-d69b-4407-9833-107c85ed3bd9-00-3pamqtk5wwj5h.kirk.replit.dev/products'); // Fetch from your API endpoint
+                const products = await response.json();
+                const container = document.getElementById('product-list');
+                const template = document.getElementById('product-template').content;
+                
+                products.forEach(product => {
+                    const productDiv = template.cloneNode(true);
+                    productDiv.querySelector('.product-image').src = product.image; // Set the image URL
+                    productDiv.querySelector('.product-image').alt = product.name; // Set alt text to the product name
+                    productDiv.querySelector('.product-name').textContent = product.name;
+                    productDiv.querySelector('.product-price').textContent = '$' + product.price + '.99';
+                    productDiv.querySelector('.product-description').textContent = product.description;
+                    productDiv.querySelector('.productID').value = product.productID;
+                    
+                    productDiv.querySelector('.view-item-btn').onclick = function() {
+                        redirectToPage(productData.productID);
+                    };
+        
+                    container.appendChild(productDiv);
+                });
+            } catch (err) {
+                alert('Failed to load products:', err);
+            }
+        }
+
+        async function loadUsers() {
+            try {
+                const response = await fetch('https://1d62c3c9-d69b-4407-9833-107c85ed3bd9-00-3pamqtk5wwj5h.kirk.replit.dev/users'); // Fetch from your API endpoint
+                const users = await response.json();
+                const container = document.getElementById('user-list');
+                const template = document.getElementById('user-template').content;
+                
+                products.forEach(product => {
+                    const userDiv = template.cloneNode(true);
+                    userDiv.querySelector('.user-image').src = users.image;
+                    userDiv.querySelector('.user-name').textContent = users.username; // Set the image URL
+                    userDiv.querySelector('.user-playTime').textContent = users.playTime; // Set alt text to the product name
+                    userDiv.querySelector('.user-tags').textContent = users.tags;
+                    userDiv.querySelector('.user-tagratio').textContent = users.tagratio;
+                    
+                    userDiv.querySelector('.friendsbutton').onclick = function() {
+                        redirectToPage(productData.productID);
+                    };
+        
+                    container.appendChild(userDiv);
+                });
+            } catch (err) {
+                alert('Failed to load products:', err);
             }
         }
     </script>
