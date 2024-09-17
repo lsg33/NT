@@ -273,8 +273,10 @@
         }
 
         async function loadUsers() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const SearchPram = urlParams.get('searchIM');
             try {
-                const response = await fetch('https://1d62c3c9-d69b-4407-9833-107c85ed3bd9-00-3pamqtk5wwj5h.kirk.replit.dev/users'); // Fetch from your API endpoint
+                const response = await fetch('https://1d62c3c9-d69b-4407-9833-107c85ed3bd9-00-3pamqtk5wwj5h.kirk.replit.dev/users?searchIM=${SearchPram}'); // Fetch from your API endpoint
                 const users = await response.json();
                 const container = document.getElementById('user-list');
                 const template = document.getElementById('user-template').content;
