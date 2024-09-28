@@ -266,7 +266,7 @@
     <main>
         <section class="profile">
             <div class="profile-header">
-                <img src="profile-pic.jpg" alt="Profile Picture" class="profile-pic">
+                <img src="" alt="Profile Picture" id="profile-pic" class="profile-pic">
                 <div class="profile-info">
                     <h2></h2>
                     <p>Username: <span id="THeirUerName">null</span></p>
@@ -433,6 +433,7 @@
             document.getElementById('likes-count').textContent = userData.tagratio + "%";
             document.getElementById('comments-count').textContent = userData.playtime + "HR";
             document.getElementById('friendID').value = userData._id;
+            document.getElementById('profile-pic').src = userData.image;
         }
     </script>
 
