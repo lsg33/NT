@@ -443,7 +443,7 @@
             const myID = getCookie("username");
             try {
                 // First fetch the user data by ID
-                const userResponse = await fetch(`https://1d62c3c9-d69b-4407-9833-107c85ed3bd9-00-3pamqtk5wwj5h.kirk.replit.dev/user?username=${(myID)}`), {
+                const userResponse = await fetch(`https://1d62c3c9-d69b-4407-9833-107c85ed3bd9-00-3pamqtk5wwj5h.kirk.replit.dev/user?username=${myID}`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
