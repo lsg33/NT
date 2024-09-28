@@ -428,7 +428,7 @@
         }
         function DataFound(userData){
             document.getElementById('THeirUerName').textContent = userData.username;
-            document.getElementById('friends-count').textContent = userData.friends;
+            document.getElementById('friends-count').textContent = userData.friendList.length;
             document.getElementById('posts-count').textContent = userData.tags;
             document.getElementById('likes-count').textContent = userData.tagratio + "%";
             document.getElementById('comments-count').textContent = userData.playtime + "HR";
