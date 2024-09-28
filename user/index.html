@@ -471,11 +471,9 @@
                 });
         
                 if (response.ok) {
-                    const data = await response.json();
                     document.getElementById('friendAdd').textContent = "Friend Added";
 
                 } else {
-                    const errorData = await response.json();
                     document.getElementById('friendAdd').textContent = "Friend Already Added";
   
                 }
