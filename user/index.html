@@ -435,7 +435,9 @@
             document.getElementById('comments-count').textContent = userData.playtime + "HR";
             document.getElementById('friendID').value = userData._id;
             document.getElementById('pfp').src = userData.image;
-            document.title = `${THeirUerName} "'s" Profile`;
+
+            const titleName = document.getElementById('THeirUerName').textContent
+            document.title = `${titleName}'s Profile`;
             checkFriend();
         }
     </script>
@@ -507,7 +509,7 @@
             if (response.ok) {
                 // Check if the friend is already in your friends list
                 if (result.isFriend) {
-                    
+                    let isFriend = result.isFriend;
                     document.getElementById('friendAdd').textContent = 'Already Friends';
                 } else {
                     
