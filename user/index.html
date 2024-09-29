@@ -459,7 +459,7 @@
                 const myuserData = await userResponse.json();
         
                 // Now that user is fetched, add the friend
-                const response = await fetch('https://1d62c3c9-d69b-4407-9833-107c85ed3bd9-00-3pamqtk5wwj5h.kirk.replit.dev/addFriend', {
+                const response = await fetch(`https://1d62c3c9-d69b-4407-9833-107c85ed3bd9-00-3pamqtk5wwj5h.kirk.replit.dev/addFriend`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -487,6 +487,39 @@
         const parts = value.split(`; ${name}=`);
         if (parts.length === 2) return parts.pop().split(';').shift();
     }
+
+    async function checkFriend() {
+        const friendName = document.getElementById('friendID').value; 
+        const myName = getCookie("username");
+        try {
+            const response = await fetch('https://1d62c3c9-d69b-4407-9833-107c85ed3bd9-00-3pamqtk5wwj5h.kirk.replit.dev/checkFriend', {
+                method: 'get', // Send a POST request
+                headers: {
+                    'Content-Type': 'application/json', // Indicate we're sending JSON data
+                },
+                body: JSON.stringify({ myName, friendName }), // Send both usernames in the request body
+            });
+    
+            const result = await response.json(); // Parse the JSON response
+    
+            if (response.ok) {
+                // Check if the friend is already in your friends list
+                if (result.isFriend) {
+                    
+                    document.getElementById('friendAdd').textContent = 'Add Back';
+                } else {
+                    
+                    document.getElementById('friendAdd').textContent = 'Add Friend';
+                }
+            } else {
+                console.error(result.message); // Log the error message
+            }
+        } catch (error) {
+            console.error('Error checking friend:', error);
+        }
+    }
+        
+        checkFriend();
     </script>
 
 </body>
