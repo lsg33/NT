@@ -413,20 +413,6 @@
         fetchUserData();
     </script>
     <script>
-        function ErrorFetchingData(){
-            document.getElementById('THeirUerName').textContent = 'Error Loading Username';
-            document.getElementById('friends-count').textContent = 'Error Loading Friends';
-            document.getElementById('posts-count').textContent = 'Error Loading Tags';
-            document.getElementById('likes-count').textContent = 'Error Loading Tag Ratio';
-            document.getElementById('comments-count').textContent = 'Error Loading Playtime';
-        }
-        function ErrorDataNotFound(){
-            document.getElementById('THeirUerName').textContent = 'User not found';
-            document.getElementById('friends-count').textContent = 'User not found';
-            document.getElementById('posts-count').textContent = 'User not found';
-            document.getElementById('likes-count').textContent = 'User not found';
-            document.getElementById('comments-count').textContent = 'User not found';
-        }
         function DataFound(userData){
             let tagRatio = userData.tags / '2';
             
@@ -444,34 +430,23 @@
         }
     </script>
 
-    <script>
-        
+    <script>      
     let isFriend;
         
     async function addFriend() {
-        const friendID = document.getElementById('friendID').value; // Get friend ID from input
-        const myID = getCookie("username");
-    
-        try {
-            // First fetch the user data by ID
-            const userResponse = await fetch(`https://1d62c3c9-d69b-4407-9833-107c85ed3bd9-00-3pamqtk5wwj5h.kirk.replit.dev/user?username=${myID}`, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            });
-    
-            // Check if the user fetch is successful
-            if (!userResponse.ok) {
-                const errorData = await userResponse.json();
-                console.error('Error fetching user:', errorData.message);
-                return; // Exit if user fetch fails
-            }
-    
-            const myuserData = await userResponse.json();
-    
-            // Now that user is fetched, check if the friend can be added
-            if (!isFriend) {
+            const friendID = document.getElementById('friendID').value; // Get friend ID from input
+            const myID = getCookie("username");
+            try {
+                // First fetch the user data by ID
+                const userResponse = await fetch(`https://1d62c3c9-d69b-4407-9833-107c85ed3bd9-00-3pamqtk5wwj5h.kirk.replit.dev/user?username=${myID}`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                });
+                
+                const myuserData = await userResponse.json();
+        
                 const response = await fetch(`https://1d62c3c9-d69b-4407-9833-107c85ed3bd9-00-3pamqtk5wwj5h.kirk.replit.dev/addFriend`, {
                     method: 'POST',
                     headers: {
@@ -481,23 +456,15 @@
                         userId: myuserData._id,  // Pass fetched userId
                         friendId: friendID
                     })
-                });
-    
-                // Check if the friend addition was successful
+                }); 
+        
                 if (response.ok) {
                     document.getElementById('friendAdd').textContent = "Friend Added";
-                } else {
-                    const errorData = await response.json();
-                    document.getElementById('friendAdd').textContent = "Error adding friend: " + errorData.message;
-                    console.error('Error adding friend:', errorData.message);
                 }
-            } else {
-                document.getElementById('friendAdd').textContent = "Friend Already Added";
+            } catch (error) {
+                console.error('Network or server error:', error);
             }
-        } catch (error) {
-            console.error('Network or server error:', error);
         }
-    }
 
     function getCookie(name) {
         const value = `; ${document.cookie}`;
