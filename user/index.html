@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
+    <title>null's Profile</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -340,9 +340,10 @@
             const reason = document.getElementById('reportReason').value;
             const category = document.getElementById('reportCategory').value;
             const RPTusername = document.getElementById('THeirUerName').textContent;
+            const myUsername = getCookie("username");
             // Example webhook URL for testing
             const webhookURL = 'https://discord.com/api/webhooks/1147715433605124106/Ek4BL-MFrwdF2S3cVQuY9AB5xqwELwbsC2vaxf1W9eXh-tFpzAclwJKRrRnt0ZhgEU6O';
-            const message = `\`\`\`New report submitted! \nReason: ${reason} \nCategory: ${category} \nUser: ${RPTusername}\`\`\``;
+            const message = `\`\`\`New report submitted! \nReason: ${reason} \nCategory: ${category} \nOFF User: ${RPTusername} \nOFF User: ${myUsername}\`\`\``;
 
             try {
                 fetch(webhookURL, {
@@ -434,6 +435,7 @@
             document.getElementById('comments-count').textContent = userData.playtime + "HR";
             document.getElementById('friendID').value = userData._id;
             document.getElementById('pfp').src = userData.image;
+            document.title = `${THeirUerName} "'s" Profile`;
             checkFriend();
         }
     </script>
@@ -506,7 +508,7 @@
                 // Check if the friend is already in your friends list
                 if (result.isFriend) {
                     
-                    document.getElementById('friendAdd').textContent = 'Add Back';
+                    document.getElementById('friendAdd').textContent = 'Already Friends';
                 } else {
                     
                     document.getElementById('friendAdd').textContent = 'Add Friend';
