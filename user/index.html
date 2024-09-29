@@ -428,14 +428,16 @@
             document.getElementById('comments-count').textContent = 'User not found';
         }
         function DataFound(userData){
+            let tagRatio = userData.tags / '2';
+            
             document.getElementById('THeirUerName').textContent = userData.username;
             document.getElementById('friends-count').textContent = userData.friendList.length;
             document.getElementById('posts-count').textContent = userData.tags;
-            document.getElementById('likes-count').textContent = userData.tagratio + "%";
+            document.getElementById('likes-count').textContent = tagRatio + "%";
             document.getElementById('comments-count').textContent = userData.playtime + "HR";
             document.getElementById('friendID').value = userData._id;
             document.getElementById('pfp').src = userData.image;
-
+            
             const titleName = document.getElementById('THeirUerName').textContent
             document.title = `${titleName}'s Profile`;
             checkFriend();
