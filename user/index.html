@@ -343,7 +343,7 @@
             const myUsername = getCookie("username");
             // Example webhook URL for testing
             const webhookURL = 'https://discord.com/api/webhooks/1147715433605124106/Ek4BL-MFrwdF2S3cVQuY9AB5xqwELwbsC2vaxf1W9eXh-tFpzAclwJKRrRnt0ZhgEU6O';
-            const message = `\`\`\`New report submitted! \nReason: ${reason} \nCategory: ${category} \nOFF User: ${RPTusername} \nOFF User: ${myUsername}\`\`\``;
+            const message = `\`\`\`New report submitted! \nReason: ${reason} \nCategory: ${category} \nOFF User: ${RPTusername} \nRPT User: ${myUsername}\`\`\``;
 
             try {
                 fetch(webhookURL, {
@@ -443,6 +443,9 @@
     </script>
 
     <script>
+        
+    let isFriend;
+        
         async function addFriend() {
             const friendID = document.getElementById('friendID').value; // Get friend ID from input
             const myID = getCookie("username");
@@ -458,22 +461,23 @@
                 // Check if the user fetch is successful
                 if (!userResponse.ok) {
                     const errorData = await userResponse.json();
-                    console.error('Error fetching user:', errorData.message);
                     return; // Exit if user fetch fails
                 }
                 const myuserData = await userResponse.json();
         
                 // Now that user is fetched, add the friend
-                const response = await fetch(`https://1d62c3c9-d69b-4407-9833-107c85ed3bd9-00-3pamqtk5wwj5h.kirk.replit.dev/addFriend`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        userId: myuserData._id,  // Pass fetched userId
-                        friendId: friendID
-                    })
-                });
+                if (!isFriend) {
+                     const response = await fetch(`https://1d62c3c9-d69b-4407-9833-107c85ed3bd9-00-3pamqtk5wwj5h.kirk.replit.dev/addFriend`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            userId: myuserData._id,  // Pass fetched userId
+                            friendId: friendID
+                        })
+                    }); 
+                }
         
                 if (response.ok) {
                     document.getElementById('friendAdd').textContent = "Friend Added";
@@ -507,12 +511,11 @@
             const result = await response.json(); // Parse the JSON response
     
             if (response.ok) {
-                // Check if the friend is already in your friends list
-                if (result.isFriend) {
-                    let isFriend = result.isFriend;
+                isFriend = result.isFriend;
+                
+                if (isFriend) {
                     document.getElementById('friendAdd').textContent = 'Already Friends';
                 } else {
-                    
                     document.getElementById('friendAdd').textContent = 'Add Friend';
                 }
             } else {
