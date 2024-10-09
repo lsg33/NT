@@ -127,8 +127,8 @@
         }
 
         .profile-pic {
-            width: 100px;
-            height: 100px;
+            width: 75px;
+            height: 75px;
             border-radius: 50%;
             border: 2px solid #ddd;
         }
@@ -156,7 +156,10 @@
             <div class="friends-list">
             <template id="friend-template">
                 <div class="friend">
-                    <img src="" alt="">
+                    <div class="profile-pic-container">
+                        <img id="pfp" src="https://via.placeholder.com/100" alt="Profile Picture" class="profile-pic">
+                        <div class="status-dot" id="status-dot"></div>
+                    </div>
                     <div class="friend-info">
                         <h4></h4>
                         <p>Tags: <span class="tags"></span></p>
