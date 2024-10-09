@@ -278,31 +278,7 @@
         }
 
         
-document.addEventListener('visibilitychange', () = >{
-  const isActive = !document.hidden;
-  const userId = getCookie('username');
-  status fetch('https://1d62c3c9-d69b-4407-9833-107c85ed3bd9-00-3pamqtk5wwj5h.kirk.replit.dev/update-status', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      userId,
-      online: true
-    })
-  }).then(response = >{
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
-    }
-    return response.json();
-  }).then(data = >{
-    console.log('Success:', data);
-          toggleStatus();
-        }).
-  catch(error = >{
-    console.error('Error:', error);
-  });
-});
+
         
 async function changeProfilePicture(type) {
     let newImage, newUsername;
