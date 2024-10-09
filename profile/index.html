@@ -251,7 +251,10 @@
 
             if (userData.isOnline === true) {
                 toggleStatus();
-                document.getElementById('onlineText').textContent = "Online:";
+                document.getElementById('onlineText').textContent = "Online: ";
+            } else {
+                document.getElementById('onlineText').textContent = "Offline: ";
+                toggleStatus();
             }
         }
         function toggleStatus() {
