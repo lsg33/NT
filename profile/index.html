@@ -295,11 +295,9 @@
             document.getElementById('likes-count').textContent = userData.tagratio + "%";
             document.getElementById('comments-count').textContent = userData.playtime + "HR";
 
-            if (userData.isOnline === true) {
+            if (userData.online === true) {
                 toggleStatus();
-                document.getElementById('onlineText').textContent = "Online: ";
             } else {
-                document.getElementById('onlineText').textContent = "Offline: ";
                 toggleStatus();
             }
         }
