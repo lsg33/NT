@@ -158,6 +158,29 @@
         .friend p {
             margin: 0.2rem 0;
         }
+                .profile-pic-container {
+            position: relative;
+            display: inline-block;
+            margin-right: 2rem;
+        }
+
+        .profile-pic {
+            width: 75px;
+            height: 75px;
+            border-radius: 50%;
+            border: 2px solid #ddd;
+        }
+
+        .status-dot {
+            width: 15px;
+            height: 15px;
+            background-color: grey; /* Default color */
+            border-radius: 50%;
+            position: absolute; /* Position it absolutely within the container */
+            bottom: 5px; /* Adjust as needed */
+            right: 5px; /* Adjust as needed */
+            border: 2px solid white; /* Optional: add a border for better visibility */
+        }
     </style>
 </head>
 <body>
@@ -175,15 +198,23 @@
         <!-- Content for Users -->
         <div class="content active" id="usersContent">
             <div id="user-list" class="user-list">
-                <template id="user-template">
-                    <img src=" " alt="LSG">
-                    <h4 class="user-name"></h4>
-                    <p>Tags: <span class="user-tags"></span></p>
-                    <p>Tag Ratio: <span class="user-tagratio"></span></p>
-                    <p>Playtime: <span class="user-playTime"></span></p>
-                    <input type="hidden" class="friendID" value="">
-                    <button class="friendsbutton">View user</button>
-                </template>
+           <template id="friend-template">
+                <div class="friend">
+                    <div class="profile-pic-container">
+                        <img id="pfp" src="https://via.placeholder.com/100" alt="Profile Picture" class="profile-pic">
+                        <div class="status-dot" id="statusdot"></div>
+                    </div>
+                    <div class="friend-info">
+                        <h4></h4>
+                        <p>Tags: <span class="tags"></span></p>
+                        <p>Tag ratio: <span class="tag-ratio"></span></p>
+                        <p>Playtime: <span class="playtime"></span></p>
+                        <button class="friend">unfriend</button>
+                    </div>
+                    <button class="friend">block</button>
+                    <button class="friend">report</button>
+                </div>
+            </template>
             </div>
         </div>
         
@@ -272,29 +303,47 @@
             }
         }
 
-        async function loadUsers() {
+        async function fetchFriends() {
+
             try {
-                const response = await fetch('https://1d62c3c9-d69b-4407-9833-107c85ed3bd9-00-3pamqtk5wwj5h.kirk.replit.dev/users'); // Fetch from your API endpoint
-                const users = await response.json();
-                const container = document.getElementById('user-list');
-                const template = document.getElementById('user-template').content;
-                
-                users.forEach(user => {
-                    const userDiv = template.cloneNode(true);
-                    userDiv.querySelector('.user-image').src = users.image;
-                    userDiv.querySelector('.user-name').textContent = users.username; // Set the image URL
-                    userDiv.querySelector('.user-playTime').textContent = users.playTime; // Set alt text to the product name
-                    userDiv.querySelector('.user-tags').textContent = users.tags;
-                    userDiv.querySelector('.user-tagratio').textContent = users.tagratio;
-                    
-                    userDiv.querySelector('.friendsbutton').onclick = function() {
-                        redirectToPage(productData.productID);
-                    };
-        
-                    container.appendChild(userDiv);
-                });
-            } catch (err) {
-                alert('Failed to load products:', err);
+
+                const friendsData = await response.json();
+                const friendsContainer = document.querySelector('.friends-list');
+                const friendTemplate = document.getElementById('friend-template').content;
+
+                    const friendResponse = await fetch(`https://1d62c3c9-d69b-4407-9833-107c85ed3bd9-00-3pamqtk5wwj5h.kirk.replit.dev/users`, {
+                        method: 'GET',
+                        headers: { 'Content-Type': 'application/json' }
+                    });
+
+                    if (!friendResponse.ok) throw new Error(`HTTP error! status: ${friendResponse.status}`);
+
+                    const friend = await friendResponse.json();
+                    const friendDiv = friendTemplate.cloneNode(true);
+                    const img = friendDiv.querySelector('img');
+                    const name = friendDiv.querySelector('h4');
+                    const tags = friendDiv.querySelector('.tags');
+                    const tagRatio = friendDiv.querySelector('.tag-ratio');
+                    const playtime = friendDiv.querySelector('.playtime');
+
+                    img.src = friend.image;
+                    name.textContent = friend.username;
+                    tags.textContent = friend.tags;
+                    tagRatio.textContent = friend.tagratio;
+                    playtime.textContent = friend.playtime;
+
+                    if (friend.online === true) {
+                        const statusDot = document.getElementById('statusdot');
+                        if (statusDot.style.backgroundColor === 'green') {
+                            statusDot.style.backgroundColor = 'grey';
+                        } else {
+                            statusDot.style.backgroundColor = 'green';
+                        }
+                    }
+
+                    friendsContainer.appendChild(friendDiv);
+            } catch (error) {
+                console.error('Error fetching friends:', error);
             }
         }
     </script>
