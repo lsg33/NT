@@ -219,9 +219,12 @@
                     playtime.textContent = friend.playtime;
 
                     if (friend.online === true) {
-                        toggleStatus();
-                    } else {
-                        toggleStatus();
+                        const statusDot = document.getElementById('status-dot');
+                        if (statusDot.style.backgroundColor === 'green') {
+                            statusDot.style.backgroundColor = 'grey';
+                        } else {
+                            statusDot.style.backgroundColor = 'green';
+                        }
                     }
 
                     friendsContainer.appendChild(friendDiv);
