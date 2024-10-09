@@ -158,7 +158,7 @@
                 <div class="friend">
                     <div class="profile-pic-container">
                         <img id="pfp" src="https://via.placeholder.com/100" alt="Profile Picture" class="profile-pic">
-                        <div class="status-dot" id="status-dot"></div>
+                        <div class="status-dot" id="statusdot"></div>
                     </div>
                     <div class="friend-info">
                         <h4></h4>
@@ -219,7 +219,7 @@
                     playtime.textContent = friend.playtime;
 
                     if (friend.online === true) {
-                        const statusDot = document.getElementById('status-dot');
+                        const statusDot = document.getElementById('statusdot');
                         if (statusDot.style.backgroundColor === 'green') {
                             statusDot.style.backgroundColor = 'grey';
                         } else {
