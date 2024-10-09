@@ -306,46 +306,49 @@
         }
 
         async function loadUsers() {
+    try {
+        const friendsContainer = document.querySelector('.user-list');
+        const friendTemplate = document.getElementById('friend-template').content;
 
-            try {
-                const friendsContainer = document.querySelector('.user-list');
-                const friendTemplate = document.getElementById('friend-template').content;
+        const friendResponse = await fetch(`https://1d62c3c9-d69b-4407-9833-107c85ed3bd9-00-3pamqtk5wwj5h.kirk.replit.dev/users`, {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json' }
+        });
 
-                    const friendResponse = await fetch(`https://1d62c3c9-d69b-4407-9833-107c85ed3bd9-00-3pamqtk5wwj5h.kirk.replit.dev/users`, {
-                        method: 'GET',
-                        headers: { 'Content-Type': 'application/json' }
-                    });
+        if (!friendResponse.ok) throw new Error(`HTTP error! status: ${friendResponse.status}`);
 
-                    if (!friendResponse.ok) throw new Error(`HTTP error! status: ${friendResponse.status}`);
+        const friends = await friendResponse.json();
 
-                    const friend = await friendResponse.json();
-                    const friendDiv = friendTemplate.cloneNode(true);
-                    const img = friendDiv.querySelector('img');
-                    const name = friendDiv.querySelector('h4');
-                    const tags = friendDiv.querySelector('.tags');
-                    const tagRatio = friendDiv.querySelector('.tag-ratio');
-                    const playtime = friendDiv.querySelector('.playtime');
+        // Use a for...of loop to iterate over each friend
+        for (const friend of friends) {
+            const friendDiv = friendTemplate.cloneNode(true);
+            const img = friendDiv.querySelector('img');
+            const name = friendDiv.querySelector('h4');
+            const tags = friendDiv.querySelector('.tags');
+            const tagRatio = friendDiv.querySelector('.tag-ratio');
+            const playtime = friendDiv.querySelector('.playtime');
 
-                    img.src = friend.image;
-                    name.textContent = friend.username;
-                    tags.textContent = friend.tags;
-                    tagRatio.textContent = friend.tagratio;
-                    playtime.textContent = friend.playtime;
+            img.src = friend.image;
+            name.textContent = friend.username;
+            tags.textContent = friend.tags;
+            tagRatio.textContent = friend.tagratio;
+            playtime.textContent = friend.playtime;
 
-                    if (friend.online === true) {
-                        const statusDot = document.getElementById('statusdot');
-                        if (statusDot.style.backgroundColor === 'green') {
-                            statusDot.style.backgroundColor = 'grey';
-                        } else {
-                            statusDot.style.backgroundColor = 'green';
-                        }
-                    }
-
-                    friendsContainer.appendChild(friendDiv);
-            } catch (error) {
-                console.error('Error fetching friends:', error);
+            // Status dot handling
+            const statusDot = friendDiv.querySelector('.status-dot'); // Ensure to get the status dot from the friendDiv
+            if (friend.online === true && statusDot) {
+                statusDot.style.backgroundColor = 'green';
+            } else if (statusDot) {
+                statusDot.style.backgroundColor = 'grey';
             }
+
+            friendsContainer.appendChild(friendDiv);
         }
+    } catch (error) {
+        console.error('Error fetching friends:', error);
+    }
+}
+
     </script>
 
 </body>
