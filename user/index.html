@@ -84,14 +84,6 @@
             margin-bottom: 2rem;
         }
 
-        .profile-pic {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            margin-right: 2rem;
-            border: 2px solid #ddd;
-        }
-
         .profile-info {
             flex-grow: 1;
         }
@@ -250,11 +242,29 @@
             background-color: #007bff;
             color: white;
         }
+
+              .profile-pic-container {
+            position: relative;
+            display: inline-block;
+            margin-right: 2rem;
+        }
+
+        .profile-pic {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 2px solid #ddd;
+        }
+
         .status-dot {
             width: 15px;
             height: 15px;
             background-color: grey; /* Default color */
-            border-radius: 50%
+            border-radius: 50%;
+            position: absolute; /* Position it absolutely within the container */
+            bottom: 5px; /* Adjust as needed */
+            right: 5px; /* Adjust as needed */
+            border: 2px solid white; /* Optional: add a border for better visibility */
         }
     </style>
 </head>
@@ -272,12 +282,14 @@
     <main>
         <section class="profile">
             <div class="profile-header">
-                <img id="pfp" src="" alt="Profile Picture" class="profile-pic">
+                <div class="profile-pic-container">
+                    <img id="pfp" src="https://via.placeholder.com/100" alt="Profile Picture" class="profile-pic">
+                    <div onclick="toggleStatus()" class="status-dot" id="status-dot"></div>
+                </div>
                 <div class="profile-info">
                     <h2></h2>
                     <p>Username: <span id="THeirUerName">null</span></p>
                     <p>Friends: <span id="friends-count">0</span></p>
-                    <p id="onlineText">null: <div class="status-dot" id="status-dot"></div></p>
                     <input type="hidden" id="friendID" value="">
                     <button onclick="addFriend()" class="friendstuffbuttons" id="friendAdd">Add Friend</button>
                     <button class="friendstuffbuttons">Block User</button>
@@ -330,12 +342,6 @@
             } else {
                 statusDot.style.backgroundColor = 'green';
             }
-        }
-
-        function search() {
-            const searchInput = document.getElementById('search-input').value;
-            alert('Searching for: ' + searchInput);
-            // Implement search logic here
         }
 
         function showReportModal() {
@@ -442,9 +448,7 @@
 
             if (userData.isOnline === true) {
                 toggleStatus();
-                document.getElementById('onlineText').textContent = "Online: ";
             } else {
-                document.getElementById('onlineText').textContent = "Offline: ";
                 toggleStatus();
             }
             
