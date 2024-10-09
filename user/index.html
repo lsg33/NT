@@ -272,11 +272,7 @@
 <body>
     <header>
         <button class="back-button" onclick="goBack()">Back</button>
-        <h1>User Profile</h1>
-        <div class="search-bar">
-            <input type="text" id="search-input" placeholder="Search...">
-            <button onclick="search()">Search</button>
-        </div>
+        <h1 id="theotherp">nulls Profile</h1>
     </header>
 
     <main>
@@ -453,6 +449,7 @@
             }
             
             const titleName = document.getElementById('THeirUerName').textContent
+            document.getElementById('theotherp').textContent = titleName;
             document.title = `${titleName}'s Profile`;
             checkFriend();
             
