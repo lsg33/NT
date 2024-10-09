@@ -249,7 +249,9 @@
             if (parts.length === 2) return parts.pop().split(';').shift();
         }
 
-        fetchFriends();
+        document.addEventListener('DOMContentLoaded', () => {
+            fetchFriends();
+        });
     </script>
 
 </body>
