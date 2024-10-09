@@ -221,6 +221,32 @@
             }
             document.cookie = name + "=" + (value || "") + expires + "; path=/";
         }
+        document.addEventListener('visibilitychange', async () => {
+            const isActive = !document.hidden;
+        
+            // Replace 'exampleUser' with the actual username you want to update
+            const username = getCookie(username);
+        
+            try {
+                const response = await fetch('https://1d62c3c9-d69b-4407-9833-107c85ed3bd9-00-3pamqtk5wwj5h.kirk.replit.dev/online', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ username, isOnline: isActive }),
+                });
+        
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+        
+                const result = await response.json();
+                console.log('Update Result:', result);
+            } catch (error) {
+                console.error('Error updating user online status:', error);
+            }
+        });
+
         
         // Function to fetch user data based on username cookie
         async function fetchUserData() {
