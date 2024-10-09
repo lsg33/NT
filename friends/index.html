@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Friends Page</title>
+    <title>My Friends</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -153,55 +153,54 @@
         function goBack() {
             window.history.back();
         }
+        
         async function fetchFriends() {
-            const myID = getCookie("username");
-            try {
-                // First fetch the friend IDs
-                const response = await fetch(`https://1d62c3c9-d69b-4407-9833-107c85ed3bd9-00-3pamqtk5wwj5h.kirk.replit.dev/user?username=${myID}`, {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                });
+          const myID = getCookie("username");
+          
+          try {
+            const response = await fetch(`https://1d62c3c9-d69b-4407-9833-107c85ed3bd9-00-3pamqtk5wwj5h.kirk.replit.dev/user?username=${myID}`, {
+              method: 'GET',
+              headers: { 'Content-Type': 'application/json' }
+            });
         
-                const friendsData = await response.json(); // Assume this contains an array of friend IDs
-                const friendsContainer = document.querySelector('.friends-list');
-                const friendTemplate = document.getElementById('friend-template').content;
+            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+            
+            const friendsData = await response.json();
+            const friendsContainer = document.querySelector('.friends-list');
+            const friendTemplate = document.getElementById('friend-template').content;
         
+            for (const id of friendsData.friendList) {
+              const friendResponse = await fetch(`https://1d62c3c9-d69b-4407-9833-107c85ed3bd9-00-3pamqtk5wwj5h.kirk.replit.dev/friendss?id=${id}`, {
+                method: 'GET',
+                headers: { 'Content-Type': 'application/json' }
+              });
         
-                // Fetch details for each friend ID
-                for (const id of friendsData.friendList) { // Adjust the path based on your response structure
-                    const friendResponse = await fetch(`https://1d62c3c9-d69b-4407-9833-107c85ed3bd9-00-3pamqtk5wwj5h.kirk.replit.dev/friendss?id=${id}`, {
-                        method: 'GET',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                    });
+              if (!friendResponse.ok) throw new Error(`HTTP error! status: ${friendResponse.status}`);
+              
+              const friend = await friendResponse.json();
+              const friendDiv = friendTemplate.cloneNode(true);
+              const img = friendDiv.querySelector('img');
+              const name = friendDiv.querySelector('h4');
+              const tags = friendDiv.querySelector('.tags');
+              const tagRatio = friendDiv.querySelector('.tag-ratio');
+              const playtime = friendDiv.querySelector('.playtime');
         
-                    const friend = await friendResponse.json(); // Assuming this returns friend details
+              img.src = friend.pfp;
+              name.textContent = friend.username;
+              tags.textContent = friend.tags.join(', ');
+              tagRatio.textContent = friend.tagRatio;
+              playtime.textContent = friend.playtime;
         
-                    const friendDiv = friendTemplate.cloneNode(true);
-                    const img = friendDiv.querySelector('img');
-                    const name = friendDiv.querySelector('h4');
-                    const tags = friendDiv.querySelector('.tags');
-                    const tagRatio = friendDiv.querySelector('.tag-ratio');
-                    const playtime = friendDiv.querySelector('.playtime');
-        
-                    img.src = friend.pfp;
-                    name.textContent = friend.username;
-                    tags.textContent = friend.tags;
-                    tagRatio.textContent = friend.tagRatio;
-                    playtime.textContent = friend.playtime;
-        
-                    friendsContainer.appendChild(friendDiv);
-                }
-            } catch (error) {
-                alert('Error fetching friends:', error);
+              friendsContainer.appendChild(friendDiv);
             }
+          } catch (error) {
+            console.error('Error fetching friends:', error);
+          }
         }
+
         
     
-        document.addEventListener('DOMContentLoaded', fetchFriends);
+        fetchFriends();
 
     </script>
 
