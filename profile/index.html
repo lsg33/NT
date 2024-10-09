@@ -202,7 +202,17 @@
             const parts = value.split(`; ${name}=`);
             if (parts.length === 2) return parts.pop().split(';').shift();
         }
-    
+
+        function setCookie(name, value, days) {
+            let expires = "";
+            if (days) {
+                const date = new Date();
+                date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                expires = "; expires=" + date.toUTCString();
+            }
+            document.cookie = name + "=" + (value || "") + expires + "; path=/";
+        }
+        
         // Function to fetch user data based on username cookie
         async function fetchUserData() {
             const username = getCookie('username'); // Retrieve the username from the cookie
@@ -267,37 +277,62 @@
             }
         }
 
-        async function changeProfilePicture() {
-            const newImage = prompt("Enter the new image URL:");
-            if (newImage) {
-                document.getElementById('pfp').src = newImage;
         
-                // Send the new image URL to the API
-                const username = getCookie('username'); // Retrieve username from cookie
-                try {
-                    const response = await fetch(`https://1d62c3c9-d69b-4407-9833-107c85ed3bd9-00-3pamqtk5wwj5h.kirk.replit.dev/updateProfilePic`, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({
-                            username: username,
-                            image: newImage
-                        }),
-                    });
-        
-                    if (!response.ok) {
-                        throw new Error('Failed to update profile picture');
-                    }
-        
-                    const data = await response.json();
-                    console.log('Profile picture updated successfully:', data);
-                } catch (error) {
-                    console.error('Error updating profile picture:', error);
-                }
-            }
+        document.addEventListener('visibilitychange', () => {
+            const isActive = !document.hidden;
+        });
+
+async function changeProfilePicture(type) {
+    let newImage, newUsername;
+
+    // Determine prompts based on the type
+    if (type === 'image') {
+        newImage = prompt("Enter the new image URL:");
+    } else if (type === 'username') {
+        newUsername = prompt("Enter the new username:");
+    }
+
+    const currentUsername = getCookie('username'); // Retrieve username from cookie
+
+    try {
+        const response = await fetch(`https://1d62c3c9-d69b-4407-9833-107c85ed3bd9-00-3pamqtk5wwj5h.kirk.replit.dev/updateProfilePic`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                Username: currentUsername,
+                newUsername: newUsername, // Use new username if provided, otherwise use current
+                image: newImage
+            }),
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to update profile picture or username');
         }
 
+        const data = await response.json();
+        console.log('Profile updated successfully:', data);
+        
+        // Update the profile picture in the DOM if applicable
+        if (newImage) {
+            document.getElementById('pfp').src = newImage;
+        }
+        
+        // Update the username in the DOM if applicable
+        if (newUsername) {
+            document.getElementById('usernames').textContent = newUsername;
+            // Optionally update cookie here if you want to persist the new username
+            setCookie('username', newUsername, 60);
+        }
+        
+    } catch (error) {
+        console.error('Error updating profile:', error);
+    }
+}
+
+
+         
     </script>
 </body>
 </html>
