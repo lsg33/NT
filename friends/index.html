@@ -171,7 +171,7 @@
 
         // Fetch details for each friend ID
         for (const friendID of friendsData.friendsList) { // Adjust the path based on your response structure
-            const friendResponse = await fetch(`https://1d62c3c9-d69b-4407-9833-107c85ed3bd9-00-3pamqtk5wwj5h.kirk.replit.dev/user?username=${friendID}`, {
+            const friendResponse = await fetch(`https://1d62c3c9-d69b-4407-9833-107c85ed3bd9-00-3pamqtk5wwj5h.kirk.replit.dev/userID?username=${friendID}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
