@@ -250,6 +250,12 @@
             background-color: #007bff;
             color: white;
         }
+        .status-dot {
+            width: 15px;
+            height: 15px;
+            background-color: grey; /* Default color */
+            border-radius: 50%
+        }
     </style>
 </head>
 
@@ -271,6 +277,7 @@
                     <h2></h2>
                     <p>Username: <span id="THeirUerName">null</span></p>
                     <p>Friends: <span id="friends-count">0</span></p>
+                    <p id="onlineText">null: <div class="status-dot" id="status-dot"></div></p>
                     <input type="hidden" id="friendID" value="">
                     <button onclick="addFriend()" class="friendstuffbuttons" id="friendAdd">Add Friend</button>
                     <button class="friendstuffbuttons">Block User</button>
@@ -314,6 +321,15 @@
     <script>
         function goBack() {
             window.history.back();
+        }
+        
+        function toggleStatus() {
+            const statusDot = document.getElementById('statusDot');
+            if (statusDot.style.backgroundColor === 'green') {
+                statusDot.style.backgroundColor = 'grey';
+            } else {
+                statusDot.style.backgroundColor = 'green';
+            }
         }
 
         function search() {
@@ -423,10 +439,19 @@
             document.getElementById('comments-count').textContent = userData.playtime + "HR";
             document.getElementById('friendID').value = userData._id;
             document.getElementById('pfp').src = userData.image;
+
+            if (userData.isOnline === true) {
+                toggleStatus();
+                document.getElementById('onlineText').textContent = "Online: ";
+            } else {
+                document.getElementById('onlineText').textContent = "Offline: ";
+                toggleStatus();
+            }
             
             const titleName = document.getElementById('THeirUerName').textContent
             document.title = `${titleName}'s Profile`;
             checkFriend();
+            
         }
     </script>
 
