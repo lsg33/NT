@@ -153,55 +153,57 @@
         function goBack() {
             window.history.back();
         }
-       async function fetchFriends() {
-    const myID = getCookie("username");
-    try {
-        // First fetch the friend IDs
-        const response = await fetch(`https://1d62c3c9-d69b-4407-9833-107c85ed3bd9-00-3pamqtk5wwj5h.kirk.replit.dev/user?username=${myID}`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        });
-
-        const friendsData = await response.json(); // Assume this contains an array of friend IDs
-        const friendsContainer = document.querySelector('.friends-list');
-        const friendTemplate = document.getElementById('friend-template').content;
-
-
-        // Fetch details for each friend ID
-        for (const friendID of friendsData.friendList) { // Adjust the path based on your response structure
-            const friendResponse = await fetch(`https://1d62c3c9-d69b-4407-9833-107c85ed3bd9-00-3pamqtk5wwj5h.kirk.replit.dev/friendss?id=${friendID}`, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            });
-
-            const friend = await friendResponse.json(); // Assuming this returns friend details
-
-            const friendDiv = friendTemplate.cloneNode(true);
-            const img = friendDiv.querySelector('img');
-            const name = friendDiv.querySelector('h4');
-            const tags = friendDiv.querySelector('.tags');
-            const tagRatio = friendDiv.querySelector('.tag-ratio');
-            const playtime = friendDiv.querySelector('.playtime');
-
-            img.src = friend.pfp; // Assuming this field exists
-            img.alt = friend.name; // Assuming this field exists
-            name.textContent = friend.username;
-            tags.textContent = friend.tags;
-            tagRatio.textContent = friend.tagRatio;
-            playtime.textContent = friend.playtime;
-
-            friendsContainer.appendChild(friendDiv);
+        async function fetchFriends() {
+            const myID = getCookie("username");
+            try {
+                // First fetch the friend IDs
+                const response = await fetch(`https://1d62c3c9-d69b-4407-9833-107c85ed3bd9-00-3pamqtk5wwj5h.kirk.replit.dev/user?username=${myID}`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                });
+        
+                const friendsData = await response.json(); // Assume this contains an array of friend IDs
+                const friendsContainer = document.querySelector('.friends-list');
+                const friendTemplate = document.getElementById('friend-template').content;
+        
+        
+                // Fetch details for each friend ID
+                for (const friendID of friendsData.friendList) { // Adjust the path based on your response structure
+                    const friendResponse = await fetch(`https://1d62c3c9-d69b-4407-9833-107c85ed3bd9-00-3pamqtk5wwj5h.kirk.replit.dev/friendss?id=${friendID}`, {
+                        method: 'GET',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                    });
+        
+                    const friend = await friendResponse.json(); // Assuming this returns friend details
+        
+                    const friendDiv = friendTemplate.cloneNode(true);
+                    const img = friendDiv.querySelector('img');
+                    const name = friendDiv.querySelector('h4');
+                    const tags = friendDiv.querySelector('.tags');
+                    const tagRatio = friendDiv.querySelector('.tag-ratio');
+                    const playtime = friendDiv.querySelector('.playtime');
+        
+                    img.src = friend.pfp; // Assuming this field exists
+                    img.alt = friend.name; // Assuming this field exists
+                    name.textContent = friend.username;
+                    tags.textContent = friend.tags;
+                    tagRatio.textContent = friend.tagRatio;
+                    playtime.textContent = friend.playtime;
+        
+                    friendsContainer.appendChild(friendDiv);
+                }
+            } catch (error) {
+                console.error('Error fetching friends:', error);
+            }
         }
-    } catch (error) {
-        console.error('Error fetching friends:', error);
-    }
-}
+        
+    fetchFriends();
 
-// Call fetchFriends when the page loads
-fetchFriends();
+    </script>
 
+</body>
 </html>
