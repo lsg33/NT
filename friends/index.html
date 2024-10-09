@@ -218,8 +218,9 @@
                     tagRatio.textContent = friend.tagratio;
                     playtime.textContent = friend.playtime;
 
-                    if (friend.online === true) {
-                        const statusDot = document.getElementById('statusdot');
+                    const statusDot = document.getElementById('statusdot');
+
+                    if (friend.online === true && statusDot) {
                         if (statusDot.style.backgroundColor === 'green') {
                             statusDot.style.backgroundColor = 'grey';
                         } else {
@@ -231,15 +232,6 @@
                 }
             } catch (error) {
                 console.error('Error fetching friends:', error);
-            }
-        }
-
-        function toggleStatus() {
-            const statusDot = document.getElementById('status-dot');
-            if (statusDot.style.backgroundColor === 'green') {
-                statusDot.style.backgroundColor = 'grey';
-            } else {
-                statusDot.style.backgroundColor = 'green';
             }
         }
 
