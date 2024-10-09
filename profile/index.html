@@ -322,7 +322,6 @@ async function changeProfilePicture(type) {
         // Update the username in the DOM if applicable
         if (newUsername) {
             document.getElementById('usernames').textContent = newUsername;
-            // Optionally update cookie here if you want to persist the new username
             setCookie('username', newUsername, 60);
         }
         
