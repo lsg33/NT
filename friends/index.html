@@ -170,7 +170,7 @@
         
         
                 // Fetch details for each friend ID
-                for (const friendID of friendsData.friendList) { // Adjust the path based on your response structure
+                for (const id of friendsData.friendList) { // Adjust the path based on your response structure
                     const friendResponse = await fetch(`https://1d62c3c9-d69b-4407-9833-107c85ed3bd9-00-3pamqtk5wwj5h.kirk.replit.dev/friendss?id=${friendID}`, {
                         method: 'GET',
                         headers: {
@@ -187,8 +187,7 @@
                     const tagRatio = friendDiv.querySelector('.tag-ratio');
                     const playtime = friendDiv.querySelector('.playtime');
         
-                    img.src = friend.pfp; // Assuming this field exists
-                    img.alt = friend.name; // Assuming this field exists
+                    img.src = friend.pfp;
                     name.textContent = friend.username;
                     tags.textContent = friend.tags;
                     tagRatio.textContent = friend.tagRatio;
@@ -197,7 +196,7 @@
                     friendsContainer.appendChild(friendDiv);
                 }
             } catch (error) {
-                console.error('Error fetching friends:', error);
+                alert('Error fetching friends:', error);
             }
         }
         
