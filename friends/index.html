@@ -131,29 +131,21 @@
 
     <main>
         <section class="friends">
-            <ul class="friends-list">
-                <!-- Example friend -->
-                <li class="friend">
-                    <img src="profile-pic1.jpg" alt="LSG">
+            <div class="friends-list">
+            <template id="friend-template">
+                <div class="friend">
+                    <img src="" alt="">
                     <div class="friend-info">
-                        <h4>LSG</h4>
-                        <p>Tags: 50</p>
-                        <p>Tag ratio: 200</p>
-                        <p>Playtime: 100h</p>
-                        <button class="friend">Unfriend</button>
+                        <h4></h4>
+                        <p>Tags: <span class="tags"></span></p>
+                        <p>Tag ratio: <span class="tag-ratio"></span></p>
+                        <p>Playtime: <span class="playtime"></span></p>
+                        <button class="friend">Something test</button>
                     </div>
-                </li>
-                <li class="friend">
-                    <img src="profile-pic2.jpg" alt="YULONG MAUHSK">
-                    <div class="friend-info">
-                        <h4>Monke</h4>
-                        <p>Tags: 75</p>
-                        <p>Tag ratio: 300</p>
-                        <p>Playtime: 150h</p>
-                        <button class="friend">Unfriend</button>
-                    </div>
-                </li>
-            </ul>
+                </div>
+            </template>
+
+            </div>
         </section>
     </main>
 
@@ -161,6 +153,55 @@
         function goBack() {
             window.history.back();
         }
-    </script>
-</body>
+       async function fetchFriends() {
+    const myID = getCookie("username");
+    try {
+        // First fetch the friend IDs
+        const response = await fetch(`https://1d62c3c9-d69b-4407-9833-107c85ed3bd9-00-3pamqtk5wwj5h.kirk.replit.dev/user?username=${myID}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+
+        const friendsData = await response.json(); // Assume this contains an array of friend IDs
+        const friendsContainer = document.querySelector('.friends-list');
+        const friendTemplate = document.getElementById('friend-template').content;
+
+
+        // Fetch details for each friend ID
+        for (const friendID of friendsData.friendsList) { // Adjust the path based on your response structure
+            const friendResponse = await fetch(`https://1d62c3c9-d69b-4407-9833-107c85ed3bd9-00-3pamqtk5wwj5h.kirk.replit.dev/user?username=${friendID}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+
+            const friend = await friendResponse.json(); // Assuming this returns friend details
+
+            const friendDiv = friendTemplate.cloneNode(true);
+            const img = friendDiv.querySelector('img');
+            const name = friendDiv.querySelector('h4');
+            const tags = friendDiv.querySelector('.tags');
+            const tagRatio = friendDiv.querySelector('.tag-ratio');
+            const playtime = friendDiv.querySelector('.playtime');
+
+            img.src = friend.profilePic; // Assuming this field exists
+            img.alt = friend.name; // Assuming this field exists
+            name.textContent = friend.name;
+            tags.textContent = friend.tags;
+            tagRatio.textContent = friend.tagRatio;
+            playtime.textContent = friend.playtime;
+
+            friendsContainer.appendChild(friendDiv);
+        }
+    } catch (error) {
+        console.error('Error fetching friends:', error);
+    }
+}
+
+// Call fetchFriends when the page loads
+window.onload = fetchFriends;
+
 </html>
