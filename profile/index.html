@@ -307,6 +307,8 @@ async function changeProfilePicture(type) {
             }),
         });
 
+        alert("d");
+
         if (!response.ok) {
             throw new Error('Failed to update profile picture or username');
         }
