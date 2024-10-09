@@ -218,10 +218,10 @@
                     tagRatio.textContent = friend.tagratio;
                     playtime.textContent = friend.playtime;
 
-                    if (userData.online === true) {
-                   
+                    if (friend.online === true) {
+                        toggleStatus();
                     } else {
-                       
+                        toggleStatus();
                     }
 
                     friendsContainer.appendChild(friendDiv);
