@@ -220,7 +220,7 @@
 
                     const statusDot = document.getElementById('statusdot');
 
-                    if (friend.online === true) {
+                    if (friend.online === true && statusdot) {
                         if (statusDot.style.backgroundColor === 'green') {
                             statusDot.style.backgroundColor = 'grey';
                         } else {
