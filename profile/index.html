@@ -286,7 +286,7 @@
             document.getElementById('usernames').textContent = userData.username;
             document.getElementById('pfp').src = userData.image;
             document.getElementById('displayName').textContent = userData.displayName;
-            document.getElementById('friends-count').textContent = userData.friends;
+            document.getElementById('friends-count').textContent = userData.friendList.length;
             document.getElementById('posts-count').textContent = userData.tags;
             document.getElementById('likes-count').textContent = userData.tagratio + "%";
             document.getElementById('comments-count').textContent = userData.playtime + "HR";
