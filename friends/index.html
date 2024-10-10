@@ -165,7 +165,7 @@
                         <p>Tags: <span class="tags"></span></p>
                         <p>Tag ratio: <span class="tag-ratio"></span></p>
                         <p>Playtime: <span class="playtime"></span></p>
-                        <input type="hidden" id="friendID" value="">
+                        <input type="hidden" id="friendID" value=" ">
                         <button onclick="redirectUser()" class="friend">unfriend</button>
                     </div>
                     <button class="friend">block</button>
@@ -222,6 +222,7 @@
                     tags.textContent = friend.tags;
                     tagRatio.textContent = friend.tagratio;
                     playtime.textContent = friend.playtime;
+                    document.getElementById('friendID').value = friend._id;
                     
                    const statusDot = friendDiv.querySelector('.status-dot');
 
