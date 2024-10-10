@@ -187,8 +187,8 @@
             border: 1px solid #ddd;
             border-radius: 8px;
             padding: 1rem;
-            margin: 0 1rem; 
-            flex: 0 0 auto; 
+            margin: 0 1rem 1rem 0;
+            flex-shrink: 0;
             text-align: center;
             width: 150px;
         }
@@ -266,13 +266,13 @@
             <h2>Our Products</h2>
             <div id="product-list" class="friends-list">
                 <template id="product-template">
-                  <div class="friend">
-                    <h3 class="product-name"></h3>
-                    <img class="product-image" src="" alt="">
-                    <p class="product-description"></p>
-                    <p class="product-price"></p>
-                    <input type="hidden" class="productID" value="">
-                    <button class="view-item-btn">View item</button>
+                  <div class="product">
+                        <h3 class="product-name"></h3>
+                        <img class="product-image" src="" alt="">
+                        <p class="product-description"></p>
+                        <p class="product-price"></p>
+                        <input type="hidden" class="productID" value="">
+                        <button class="view-item-btn">View item</button>
                   </div>
                 </template>
             </div>
