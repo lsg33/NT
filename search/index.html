@@ -311,10 +311,7 @@
                 const friendsContainer = document.querySelector('.user-list');
                 const friendTemplate = document.getElementById('friend-template').content;
         
-                const params = new URLSearchParams(window.location.search); 
-                const name = params.get('searchIM');
-        
-                const friendResponse = await fetch(`https://1d62c3c9-d69b-4407-9833-107c85ed3bd9-00-3pamqtk5wwj5h.kirk.replit.dev/users?searchIM=${name}`, {
+                const friendResponse = await fetch(`https://1d62c3c9-d69b-4407-9833-107c85ed3bd9-00-3pamqtk5wwj5h.kirk.replit.dev/users`, {
                     method: 'GET',
                     headers: { 'Content-Type': 'application/json' }
                 });
