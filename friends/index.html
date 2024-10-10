@@ -222,7 +222,9 @@
                     tags.textContent = friend.tags;
                     tagRatio.textContent = friend.tagratio;
                     playtime.textContent = friend.playtime;
-                    document.getElementById('friendID').value = friend._id;
+                    const india = document.getElementById('friendID');
+                    india.value = friend._id;
+                    
                     
                    const statusDot = friendDiv.querySelector('.status-dot');
 
