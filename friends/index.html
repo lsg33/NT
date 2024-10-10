@@ -218,7 +218,7 @@
                     tagRatio.textContent = friend.tagratio;
                     playtime.textContent = friend.playtime;
 
-                    const statusDot = document.getElementById('statusdot');
+                   const statusDot = friendDiv.querySelector('.status-dot');
 
                     if (friend.online === true && statusDot) {
                         if (statusDot.style.backgroundColor === 'green') {
