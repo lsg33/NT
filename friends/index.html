@@ -165,7 +165,8 @@
                         <p>Tags: <span class="tags"></span></p>
                         <p>Tag ratio: <span class="tag-ratio"></span></p>
                         <p>Playtime: <span class="playtime"></span></p>
-                        <button class="friend">unfriend</button>
+                        <input type="hidden" id="friendID" value="">
+                        <button onclick="redirectUser()" class="friend">unfriend</button>
                     </div>
                     <button class="friend">block</button>
                     <button class="friend">report</button>
@@ -179,6 +180,10 @@
   <script>
         function goBack() {
             window.history.back();
+        }
+        function redirectUser() {
+            const user = document.getElementById('friendID').value;
+            window.location.href = "/user?username=${user}";
         }
 
         async function fetchFriends() {
@@ -217,6 +222,7 @@
                     tags.textContent = friend.tags;
                     tagRatio.textContent = friend.tagratio;
                     playtime.textContent = friend.playtime;
+                    document.getElementById('friendID').value = userData._id;
 
                    const statusDot = friendDiv.querySelector('.status-dot');
 
