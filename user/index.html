@@ -485,7 +485,7 @@
                     })
                 }); 
         
-                if (response.ok) {
+                if (response.ok !isFriend) {
                     document.getElementById('friendAdd').textContent = "Friend Added";
                 }
             } catch (error) {
