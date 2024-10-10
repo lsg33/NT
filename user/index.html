@@ -459,6 +459,7 @@
 
     <script>      
     let isFriend;
+    let isPending;
         
     async function addFriend() {
             const friendID = document.getElementById('friendID').value; // Get friend ID from input
@@ -514,9 +515,15 @@
     
             if (response.ok) {
                 isFriend = result.isFriend;
+                isPending = result.isPending;
                 
                 if (isFriend) {
-                    document.getElementById('friendAdd').textContent = 'Already Friends';
+                    document.getElementById('friendAdd').textContent = 'Friends';
+                } else {
+                    document.getElementById('friendAdd').textContent = 'Add Friend';
+                } 
+                if (isPending) {
+                    document.getElementById('friendAdd').textContent = 'Add Back';
                 } else {
                     document.getElementById('friendAdd').textContent = 'Add Friend';
                 }
