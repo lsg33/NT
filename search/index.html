@@ -319,6 +319,8 @@
 
         const friends = await friendResponse.json();
 
+          friendsContainer.innerHTML = " ";
+
         // Use a for...of loop to iterate over each friend
         for (const friend of friends) {
             const friendDiv = friendTemplate.cloneNode(true);
@@ -342,7 +344,6 @@
                 statusDot.style.backgroundColor = 'grey';
             }
 
-            friendsContainer.innerHTML = " ";
             friendsContainer.appendChild(friendDiv);
         }
     } catch (error) {
