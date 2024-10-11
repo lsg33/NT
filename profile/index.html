@@ -272,8 +272,8 @@
             </div>
             <div class="modal-body">
                 <div class="profile-pic-container">
-                    <img id="pfpPreview" src="https://via.placeholder.com/100" alt="Profile Picture" class="profile-pic" onclick="changeProfilePicture('image')">
-                    <input type="file" accept="image/*" id="imageInput">
+                        <input type="file" id="imageInput" accept="image/*" style="display:none;">
+                        <img id="pfpPreview" src="https://via.placeholder.com/100" alt="Profile Picture" class="profile-pic" style="cursor: pointer;">
                 </div>
                 <label for="newUsername">Username:</label>
                 <input type="text" id="newUsername" name="newUsername" placeholder="Enter new username...">
@@ -396,29 +396,31 @@
 
         const imageInput = document.getElementById('imageInput');
         const preview = document.getElementById('pfpPreview');
-        const newUsernames = document.getElementById('newUsername');
-
-        imageInput.addEventListener('change', function() {
-            const file = this.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(event) {
-                    preview.src = event.target.result;
-                    preview.style.display = 'block'; 
+        
+            // Trigger file input when the image is clicked
+            preview.addEventListener('click', function() {
+                imageInput.click();
+            });
+        
+            // Update the image preview when a file is selected
+            imageInput.addEventListener('change', function() {
+                const file = this.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(event) {
+                        preview.src = event.target.result;
+                    }
+                    reader.readAsDataURL(file);
                 }
-                reader.readAsDataURL(file);
-            }
-        });
+            });
+
 
         
         async function editingProfile(type) {
             let newImage, newUsername;
             
-            if (type === 'image') {
-                newImage = preview.src;
-            } else if (type === 'username') {
-                newUsername = newUsernames.textContent;
-            }
+            newImage = preview.src;
+            newUsername = newUsernames.textContent;
         
             const currentUsername = getCookie('username'); 
         
@@ -429,7 +431,7 @@
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify({
-                        username: currentUsername, // Corrected to lowercase 'username'
+                        username: currentUsername, 
                         newUsername: newUsername,
                         image: newImage
                     }),
@@ -442,16 +444,12 @@
                 const data = await response.json();
                 console.log('Profile updated successfully:', data);
                 
-                // Update the profile picture in the DOM if applicable
-                if (newImage) {
-                    document.getElementById('pfp').src = newImage;
-                }
                 
-                // Update the username in the DOM if applicable
-                if (newUsername) {
-                    document.getElementById('usernames').textContent = newUsername;
-                    setCookie('username', newUsername, 60);
-                }
+                document.getElementById('pfp').src = newImage;
+                document.getElementById('usernames').textContent = newUsername;
+                setCookie('username', newUsername, 60);
+
+                closeReportModal();
                 
             } catch (error) {
                 console.error('Error updating profile:', error);
