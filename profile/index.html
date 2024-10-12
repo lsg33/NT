@@ -417,10 +417,9 @@
 
         
         async function editingProfile() {
-            let newImage, newUsername;
             
-            newImage = preview.src;
-            newUsername = newUsernames.textContent;
+            const newImage = preview.src;
+            const newUsername = newUsernames.textContent;
         
             const currentUsername = getCookie('username'); 
         
@@ -456,10 +455,6 @@
                 alert("An error occurred while updating your profile. Please try again."); // Added user feedback
             }
         }
-        
-    </script>
-
-    <script>
         function closeReportModal() {
             const modal = document.getElementById('reportModal');
             modal.classList.remove('active');
