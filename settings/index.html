@@ -139,6 +139,12 @@
                 <input type="checkbox" id="loginToggle">
                 <span class="slider"></span>
             </label>
+
+            <p>Custom Login</p>
+            <label class="switch">
+                <input type="checkbox" id="customUserToggle">
+                <span class="slider"></span>
+            </label>
         </section>
     </main>
 
@@ -185,6 +191,22 @@
             if (this.checked) {
                 setCookie('isLoggedIn', 'true', 60);
                 setCookie('username', 'devTest', 60);
+            } else {
+                setCookie('isLoggedIn', 'false', 60);
+                setCookie('username', ' ', 60);
+            }
+        });
+
+        const customLoginSwitch = document.getElementById('customUserToggle');
+
+        // Event listener for the toggle switch
+        customloginSwitch.addEventListener('change', function() {
+            if (this.checked) {
+                const customUser = prompt("Please enter the desired custom user:");
+                if (customUser) { // Check if the user provided a username
+                    setCookie('isLoggedIn', 'true', 60);
+                    setCookie('username', customUser, 60); // Save the entered username
+                }
             } else {
                 setCookie('isLoggedIn', 'false', 60);
                 setCookie('username', ' ', 60);
