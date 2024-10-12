@@ -142,7 +142,7 @@
 
             <p>Custom Login</p>
             <label class="switch">
-                <input type="checkbox" id="customUserToggle">
+                <input type="checkbox" id="customloginSwitch">
                 <span class="slider"></span>
             </label>
         </section>
@@ -197,10 +197,7 @@
             }
         });
 
-        const customLoginSwitch = document.getElementById('customUserToggle');
-
-        // Event listener for the toggle switch
-        customloginSwitch.addEventListener('change', function() {
+        document.getElementById('customloginSwitch').addEventListener('change', function() {
             if (this.checked) {
                 const customUser = prompt("Please enter the desired custom user:");
                 if (customUser) { // Check if the user provided a username
