@@ -245,12 +245,12 @@
         <section class="profile">
             <div class="profile-header">
                  <div class="profile-pic-container">
-                    <img id="pfp" src="https://via.placeholder.com/100" alt="Profile Picture" class="profile-pic" onclick="changeProfilePicture('image')">
-                    <div onclick="toggleStatus()" class="status-dot" id="status-dot"></div>
+                    <img id="pfp" src="https://via.placeholder.com/100" alt="Profile Picture" class="profile-pic">
+                    <div class="status-dot" id="status-dot"></div>
                 </div>
                 <div class="profile-info">
                     <h2 id="displayName">null</h2>
-                    <p>Username: <span onclick="changeProfilePicture('username')" id="usernames"></p>
+                    <p>Username: <span id="usernames"></p>
                     <p>Friends: <span id="friends-count">0</span></p>
                 </div>
                 <button onclick="showReportModal()" class="friendbutton">Edit Profile</button>
@@ -422,9 +422,6 @@
             const newUsername = document.getElementById('newUsername').value;
         
             const currentUsername = getCookie('username'); 
-
-            alert(newImage);
-            alert(newUsername);
         
             try {
                 const response = await fetch(`https://1d62c3c9-d69b-4407-9833-107c85ed3bd9-00-3pamqtk5wwj5h.kirk.replit.dev/updateProfilePic`, {
