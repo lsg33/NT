@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        .loading {
+            font-size: 24px;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+
+        .loading::after {
+            content: '...';
+            animation: dots 1.5s steps(3, end) infinite;
+        }
+
+        @keyframes dots {
+            0% {
+                content: '';
+            }
+            33% {
+                content: '.';
+            }
+            66% {
+                content: '..';
+            }
+            100% {
+                content: '...';
+            }
+        }
+    </style>
+    <script>
+        function getQueryParams() {
+            const params = new URLSearchParams(window.location.search);
+            return {
+                accessToken: params.get('code')
+            };
+        }
+
+        function setCookie(name, value, days) {
+            let expires = "";
+            if (days) {
+                const date = new Date();
+                date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                expires = "; expires=" + date.toUTCString();
+            }
+            document.cookie = name + "=" + (value || "") + expires + "; path=/";
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const { accessToken } = getQueryParams();
+            
+            fetch(`/api/auth/oculus?accessToken=${encodeURIComponent(accessToken)}`, {
+                method: 'GET',
+                headers: {
+                    'Accept': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    document.getElementById('authenticateText').textContent = 'Authentication successful';
+                    console.log("Authentication successful:", data);
+                    setCookie('isLoggedIn', 'true', 7);
+                    window.location.href = `/`
+                } else {
+                    document.getElementById('authenticateText').textContent = 'Authentication failed';
+                    alert("Authentication failed:", data.message);
+                }
+            })
+            .catch(error => {
+                document.getElementById('authenticateText').textContent = 'An error occurred';
+                alert("Error:", error);
+            });
+        });
+    </script>
+</head>
+<body>
+    <div style="text-align: center;">
+        <h1>Meta SSO</h1>
+        <p id="authenticateText" class="loading">Please wait while we authenticate...</p>
+    </div>
+</body>
+</html>
