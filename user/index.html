@@ -452,7 +452,7 @@
             const titleName = document.getElementById('THeirUerName').textContent
             document.getElementById('theotherp').textContent = titleName;
             document.title = `${titleName}'s Profile`;
-            checkFriend();
+            //checkFriend();
             
         }
     </script>
@@ -463,6 +463,11 @@
 async function addFriend() {
     const friendID = document.getElementById('friendID').value; // Get friend ID from input
     const myID = getCookie("username");
+
+            if (friendName == myName) {
+                alert("Cannot view your own profile.");
+                 window.location.href = "/profile";
+            }
 
     try {
         // First fetch the user data by ID
@@ -493,6 +498,7 @@ async function addFriend() {
 
             if (response.ok) {
                 console.log("Friend Removed");
+                document.getElementById('friendAdd').textContent = 'add Friend';
                 fetchUserData();  // Fetch updated data to reflect changes
             }
         } else {
@@ -511,6 +517,7 @@ async function addFriend() {
             if (response.ok) {
                 console.log("Friend Added");
                 fetchUserData();  // Fetch updated data to reflect changes
+                document.getElementById('friendAdd').textContent = 'Unadd Friend';
             }
         }
     } catch (error) {
@@ -548,7 +555,7 @@ async function addFriend() {
             
             if (friendName == myName) {
                 alert("Can not view your own profile.");
-                 window.location.href = "/";
+                 window.location.href = "/profile";
             }
             if (response.ok) {
                 isFriend = result.isFriend;
