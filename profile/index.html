@@ -312,7 +312,7 @@
             const username = getCookie(username);
         
             try {
-                const response = await fetch('https://cors-production-b153.up.railway.app/online', {
+                const response = await fetch('https://ntapi.up.railway.app/online', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -343,7 +343,7 @@
             }
             try {
                 // Fetch user data from the API
-                const response = await fetch(`https://cors-production-b153.up.railway.app/user?username=${encodeURIComponent(username)}`);
+                const response = await fetch(`https://ntapi.up.railway.app/user?username=${encodeURIComponent(username)}`);
                 if (!response.ok) {
                     throw new Error('User data not found');
                 }
@@ -424,7 +424,7 @@
             const currentUsername = getCookie('username'); 
         
             try {
-                const response = await fetch(`https://cors-production-b153.up.railway.app/updateProfilePic`, {
+                const response = await fetch(`https://ntapi.up.railway.app/updateProfilePic`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
