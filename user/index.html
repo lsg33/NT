@@ -515,6 +515,11 @@ async function checkFriend() {
             alert("Cannot view your own profile.");
             window.location.href = "/profile";
         }
+        // If the server responds with a block message
+        if (response.data.redirectTo) {
+          window.location.href = response.data.redirectTo;
+        }
+
 
         if (response.ok) {
             isFriend = result.isFriend; // Set the isFriend variable based on the server's response
