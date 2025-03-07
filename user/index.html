@@ -541,8 +541,12 @@ async function addFriend() {
                 }
             });
     
-            const result = await response.json(); // Parse the JSON response
-    
+            const result = await response.json();
+            
+            if (friendName == myName) {
+
+                 href = '/';
+            }
             if (response.ok) {
                 isFriend = result.isFriend;
                 
