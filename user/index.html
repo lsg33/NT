@@ -517,23 +517,8 @@ async function addFriend() {
 }
 
     function blockUser() {
-         const friendID = document.getElementById('friendID').value; // Get friend ID from input
-         const myID = getCookie("username");
-          // If already friends, remove the friend
-            const response = await fetch(`https://ntapi.up.railway.app/removeFriend`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    userId: myuserData._id,  // Pass fetched userId
-                    friendId: friendID
-                })
-            });
-
-            if (response.ok) {
-                document.getElementById('blockUser').textContent = "User Blocked"; // Change button text
-            }
+  
+        
 
         
     }
