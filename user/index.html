@@ -492,7 +492,8 @@ async function addFriend() {
             });
 
             if (response.ok) {
-                document.getElementById('friendAdd').textContent = "Friend Removed"; // Change button text
+                document.getElementById('friendAdd').textContent = "Friend Removed";
+                fetchUserData();
             }
         } else {
             // If not friends, add the friend
@@ -508,7 +509,8 @@ async function addFriend() {
             });
 
             if (response.ok) {
-                document.getElementById('friendAdd').textContent = "Friend Added"; // Change button text
+                document.getElementById('friendAdd').textContent = "Friend Added";
+                fetchUserData();
             }
         }
     } catch (error) {
