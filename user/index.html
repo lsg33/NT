@@ -544,7 +544,7 @@ async function addFriend() {
             const result = await response.json();
             
             if (friendName == myName) {
-
+                alert("Can not view your own profile.");
                  window.location.href = "/";
             }
             if (response.ok) {
