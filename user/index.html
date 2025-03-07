@@ -474,20 +474,43 @@ async function addFriend() {
                 
                 const myuserData = await userResponse.json();
         
-                const response = await fetch(`https://ntapi.up.railway.app/addFriend`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        userId: myuserData._id,  // Pass fetched userId
-                        friendId: friendID
-                    })
-                }); 
-        
-                if (response.ok && !isFriend) {
-                    document.getElementById('friendAdd').textContent = "Friend Added";
+    
+                
+                if (isFriend) {
+                      const responses = await fetch(`https://ntapi.up.railway.app/removeFriend`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            userId: myuserData._id,  // Pass fetched userId
+                            friendId: friendID
+                        })
+                    }); 
+            
+                    if (responses.ok && isFriend) {
+                        document.getElementById('friendAdd').textContent = "Friend Unadded";
+                        fetchUserData();
+                    }
+                } else {
+    
+                                    const response = await fetch(`https://ntapi.up.railway.app/addFriend`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            userId: myuserData._id,  // Pass fetched userId
+                            friendId: friendID
+                        })
+                    }); 
+            
+                    if (response.ok && isFriend) {
+                        document.getElementById('friendAdd').textContent = "Friend Added";
+                        fetchUserData();
+                    }
                 }
+                
             } catch (error) {
                 console.error('Network or server error:', error);
             }
