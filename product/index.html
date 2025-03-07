@@ -290,7 +290,7 @@
                 return;
             }
             try {
-                const response = await fetch(`https://1d62c3c9-d69b-4407-9833-107c85ed3bd9-00-3pamqtk5wwj5h.kirk.replit.dev/product?productID=${encodeURIComponent(productID)}`);
+                const response = await fetch(`https://cors-production-b153.up.railway.app/product?productID=${encodeURIComponent(productID)}`);
                 if (!response.ok) {
                     throw new Error('product data not found');
                 }
