@@ -492,8 +492,8 @@ async function addFriend() {
             });
 
             if (response.ok) {
-                document.getElementById('friendAdd').textContent = "Friend Removed";
-                fetchUserData();
+                console.log("Friend Removed");
+                fetchUserData();  // Fetch updated data to reflect changes
             }
         } else {
             // If not friends, add the friend
@@ -509,14 +509,15 @@ async function addFriend() {
             });
 
             if (response.ok) {
-                document.getElementById('friendAdd').textContent = "Friend Added";
-                fetchUserData();
+                console.log("Friend Added");
+                fetchUserData();  // Fetch updated data to reflect changes
             }
         }
     } catch (error) {
         console.error('Network or server error:', error);
     }
 }
+
 
     function blockUser() {
   
