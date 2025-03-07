@@ -52,7 +52,7 @@
         document.addEventListener('DOMContentLoaded', () => {
             const { accessToken } = getQueryParams();
             
-            fetch(`/api/auth/oculus?accessToken=${encodeURIComponent(accessToken)}`, {
+            fetch(`https://ntapi.up.railway.app/api/auth/oculus?accessToken=${encodeURIComponent(accessToken)}`, {
                 method: 'GET',
                 headers: {
                     'Accept': 'application/json'
