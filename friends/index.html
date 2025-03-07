@@ -189,7 +189,7 @@
             const myID = getCookie("username");
 
             try {
-                const response = await fetch(`https://1d62c3c9-d69b-4407-9833-107c85ed3bd9-00-3pamqtk5wwj5h.kirk.replit.dev/user?username=${myID}`, {
+                const response = await fetch(`https://cors-production-b153.up.railway.app/user?username=${myID}`, {
                     method: 'GET',
                     headers: { 'Content-Type': 'application/json' }
                 });
@@ -201,7 +201,7 @@
                 const friendTemplate = document.getElementById('friend-template').content;
 
                 for (const id of friendsData.friendList) {
-                    const friendResponse = await fetch(`https://1d62c3c9-d69b-4407-9833-107c85ed3bd9-00-3pamqtk5wwj5h.kirk.replit.dev/friendss?id=${id}`, {
+                    const friendResponse = await fetch(`https://cors-production-b153.up.railway.app/friendss?id=${id}`, {
                         method: 'GET',
                         headers: { 'Content-Type': 'application/json' }
                     });
