@@ -174,7 +174,7 @@
     <script>
         async function loadProducts() {
             try {
-                const response = await fetch('https://cors-production-b153.up.railway.app/products'); // Fetch from your API endpoint
+                const response = await fetch('https://ntapi.up.railway.app/products'); // Fetch from your API endpoint
                 const products = await response.json();
                 const container = document.getElementById('product-list');
                 const template = document.getElementById('product-template').content;
