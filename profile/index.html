@@ -348,6 +348,11 @@
     </footer>
 
     <script>
+
+    function showTab(tab) {
+      document.getElementById("statsTab").style.display = tab === "stats" ? "block" : "none";
+      document.getElementById("cosmeticsTab").style.display = tab === "cosmetics" ? "block" : "none";
+    }
         // Function to get the value of a cookie by name
         function getCookie(name) {
             const value = `; ${document.cookie}`;
