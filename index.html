@@ -352,8 +352,8 @@
 
             <div id="not-logged-in-content" class="not-logged-in-content" style="display: none;">
                 <h2>You are not logged in</h2>
-                <p>Please log in with Meta to access the main content of the page.</p>
-                <button onclick="redirectloginPage()" class="login-button">Login with Meta</button>
+                <p>Please log in with Your 6-digit in-game link code to access the main content of the page.</p>
+                <button onclick="redirectloginPage()" class="login-button">Login with Link Code</button>
             </div>
 
     <footer>
@@ -385,7 +385,7 @@
         }
         
         function redirectloginPage() {
-            window.location.href = `https://auth.oculus.com/sso?client_id=7238920182799088&redirect_uri=https://novatag.lol/Login/?code=&response_type=code&scope=openid&org_id=828543425687060`;
+            window.location.href = `/link`;
         }
     </script>
 
