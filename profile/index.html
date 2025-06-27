@@ -233,6 +233,54 @@
             background-color: #007bff;
             color: white;
         }
+
+            .tab-buttons {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 1rem;
+      gap: 10px;
+    }
+
+    .tab-content {
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      padding: 1rem;
+    }
+
+    .stats-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    .stats-list li {
+      background-color: #f9f9f9;
+      margin-bottom: 0.5rem;
+      padding: 0.5rem;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .cosmetics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
+      gap: 10px;
+      margin-top: 1rem;
+    }
+
+    .cosmetic-block {
+      width: 100%;
+      aspect-ratio: 1;
+      background-color: #ccc;
+      border-radius: 4px;
+    }
+
+    .currency-label {
+      text-align: right;
+      font-weight: bold;
+    }
     </style>
 </head>
 <body>
@@ -256,14 +304,29 @@
                 <button onclick="showReportModal()" class="friendbutton">Edit Profile</button>
             </div>
 
-            <div class="stats-section">
-                <h3>Stats</h3>
-                <ul class="stats-list">
-                    <li>Tags: <span id="posts-count">0</span></li>
-                    <li>Tag ratio: <span id="likes-count">0</span></li>
-                    <li>Playtime: <span id="comments-count">0</span></li>
-                </ul>
-            </div>
+             <div class="tab-buttons">
+        <button id="statsBtn" class="friendbutton" onclick="showTab('stats')">Stats</button>
+        <button id="cosmeticsBtn" class="friendbutton" onclick="showTab('cosmetics')">Cosmetics</button>
+      </div>
+
+      <div id="statsTab" class="tab-content">
+        <h3>Stats</h3>
+        <ul class="stats-list">
+          <li>Tags: <span id="posts-count">0</span></li>
+          <li>Tag ratio: <span id="likes-count">0%</span></li>
+          <li>Playtime: <span id="comments-count">0</span>HR</li>
+        </ul>
+      </div>
+
+      <div id="cosmeticsTab" class="tab-content" style="display: none;">
+        <div class="currency-label">Currency: 0</div>
+        <div class="cosmetics-grid">
+          <div class="cosmetic-block"><img src="https://media.sketchfab.com/models/1c713c8f49054756920dff532776e29e/thumbnails/34bd23498eaf48d5847cc2f91cebc738/064505d2f1424f0289211664530f11f6.jpeg"></div>
+          <div class="cosmetic-block"><img src="https://media.sketchfab.com/models/1c713c8f49054756920dff532776e29e/thumbnails/34bd23498eaf48d5847cc2f91cebc738/064505d2f1424f0289211664530f11f6.jpeg"></div>
+          <div class="cosmetic-block"><img src="https://media.sketchfab.com/models/1c713c8f49054756920dff532776e29e/thumbnails/34bd23498eaf48d5847cc2f91cebc738/064505d2f1424f0289211664530f11f6.jpeg"></div>
+          <div class="cosmetic-block"><img src="https://media.sketchfab.com/models/1c713c8f49054756920dff532776e29e/thumbnails/34bd23498eaf48d5847cc2f91cebc738/064505d2f1424f0289211664530f11f6.jpeg"></div>
+        </div>
+      </div>
         </section>
         <div id="reportModal" class="report-modal">
             <div class="modal-header">
@@ -271,10 +334,6 @@
                 <button class="close-button" onclick="closeReportModal()">×</button>
             </div>
             <div class="modal-body">
-                <div class="profile-pic-container">
-                        <input type="file" id="imageInput" accept="image/*" style="display:none;">
-                        <img id="pfpPreview" src="https://via.placeholder.com/100" alt="Profile Picture" class="profile-pic" style="cursor: pointer;">
-                </div>
                 <label for="newUsername">Username:</label>
                 <input type="text" id="newUsername" name="newUsername" placeholder="Enter new username...">
             </div>
