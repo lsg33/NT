@@ -260,32 +260,32 @@
             <input type="text" id="search-input" placeholder="Search...">
             <button onclick="search()">Search</button>
         </div>
-        <nav>
-            <ul class="tabs">
-                <li>
-                    <a href="#">Social</a>
-                    <div class="dropdown">
-                        <a href="/profile">Profile</a>
-                        <a href="/friends">Friends</a>
-                    </div>
-                </li>
-                <li>
-                    <a href="#">Store</a>
-                    <div class="dropdown">
-                        <a href="/shop">Shop</a>
-                    </div>
-                </li>
-                <li>
-                    <a href="#">Rules</a>
-                    <div class="dropdown">
-                        <a href="/pp">Privacy Policy</a>
-                        <a href="/tos">Terms Of Service</a>
-                        <a href="/coc">Code Of Conduct</a>
-                    </div>
-                </li>
-                <li><a href="/settings">Settings</a></li>
-            </ul>
-        </nav>
+           <nav>
+      <ul class="tabs" id="nav-tabs">
+        <li id="settings-tab"><a href="/settings">Settings</a></li>
+        <li class="nav-auth" style="display: none;">
+          <a href="#">Social</a>
+          <div class="dropdown">
+            <a href="/profile">Profile</a>
+            <a href="/friends">Friends</a>
+          </div>
+        </li>
+        <li class="nav-auth" style="display: none;">
+          <a href="#">Store</a>
+          <div class="dropdown">
+            <a href="/shop">Shop</a>
+          </div>
+        </li>
+        <li class="nav-auth" style="display: none;">
+          <a href="#">Rules</a>
+          <div class="dropdown">
+            <a href="/pp">Privacy Policy</a>
+            <a href="/tos">Terms Of Service</a>
+            <a href="/coc">Code Of Conduct</a>
+          </div>
+        </li>
+      </ul>
+    </nav>
     </header>
 
     <main class="mainS" id="main-content" style="display: none;">
@@ -419,11 +419,14 @@
         document.addEventListener('DOMContentLoaded', () => {
             const isLoggedIn = getCookie('isLoggedIn');
     
-            if (isLoggedIn === 'true') {
-                enableMainContent();
-            } else {
-                showNotLoggedInMessage();
-            }
+               if (isLoggedIn === 'true') {
+                document.getElementById('main-content').style.display = 'block';
+                document.querySelectorAll('.nav-auth').forEach(el => el.style.display = 'inline-block');
+                document.getElementById('not-logged-in-content').style.display = 'none';
+              } else {
+                document.getElementById('not-logged-in-content').style.display = 'block';
+                document.querySelectorAll('.nav-auth').forEach(el => el.style.display = 'none');
+              }
         });
     </script>
 
