@@ -121,21 +121,24 @@
         }
 
 .product {
-  width: 300px;           /* or whatever width you want */
-  height: 300px;          /* fixed height to see the image */
-  background-size: cover; /* cover entire div */
-  background-position: center;
-  background-repeat: no-repeat;
-  color: white;           /* text color on top */
-  padding: 15px;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end; /* push text/buttons to bottom */
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-  position: relative;
-background-image: url('https://images.genius.com/42b0e9b115b685c8dd7e7f32e3f1ce9c.999x999x1.jpg');
+    border: 1px solid #ddd;
+    padding: 1rem;
+    margin: 0 1rem 1rem 0;
+    text-align: center;
+    border-radius: 8px;
+    flex-shrink: 0;
+    background-image: url('https://images.genius.com/42b0e9b115b685c8dd7e7f32e3f1ce9c.999x999x1.jpg');
+    background-size: cover;        /* Make image cover the box */
+    background-position: center;   /* Center the image */
+    background-repeat: no-repeat;  /* Prevent repeating */
+    color: white;                  /* Text color if on top */
+    height: 300px;                 /* Set a fixed height */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;     /* Align content at bottom */
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15); /* subtle shadow */
 }
+
 
 
         .product img {
