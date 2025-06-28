@@ -385,16 +385,18 @@
 
     <script>
 
-           const hoverTarget = document.getElementById("usernames");
-            const infoBox = document.getElementById("userInfoBox");
-            
-            hoverTarget.addEventListener("mouseenter", () => {
-              infoBox.style.display = "block";
-            });
-            
-            hoverTarget.addEventListener("mouseleave", () => {
-              infoBox.style.display = "none";
-            });
+        const hoverTarget = document.getElementById("username");
+    const infoBox = document.getElementById("userInfoBox");
+
+    hoverTarget.addEventListener("mousemove", (e) => {
+      infoBox.classList.add("show");
+      infoBox.style.left = e.pageX + 15 + "px";
+      infoBox.style.top = e.pageY + 15 + "px";
+    });
+
+    hoverTarget.addEventListener("mouseleave", () => {
+      infoBox.classList.remove("show");
+    });
 
     function showTab(tab) {
       const tabs = ['statsTab', 'cosmeticsTab'];
