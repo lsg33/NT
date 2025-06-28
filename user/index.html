@@ -97,39 +97,43 @@
             margin: 0.2rem 0;
         }
 
-        .stats-section {
-            margin-top: 2rem;
-            border: 1px solid #ddd;
-            /* Light border for beveled effect */
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            /* Box shadow for depth */
-            padding: 1rem;
-            /* Padding inside the stats section */
-        }
+       .tab-buttons {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 1rem;
+      gap: 10px;
+    }
 
-        .stats-section h3 {
-            margin-bottom: 1rem;
-            font-size: 1.5rem;
-            /* Increase font size for section header */
-        }
+    .tab-content-wrapper {
+      width: 100%;
+      min-height: 300px; /* Keeps height stable */
+    }
 
-        .stats-list {
-            list-style: none;
-            padding: 0;
-        }
+    .tab-content {
+      display: none;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
 
-        .stats-list li {
-            background-color: #f9f9f9;
-            margin-bottom: 0.5rem;
-            padding: 0.5rem;
-            border: 1px solid #ddd;
-            /* Match the border color with .stats-section */
-            border-radius: 4px;
-            display: flex;
-            justify-content: space-between;
-        }
+    .tab-content.active {
+      display: block;
+      opacity: 1;
+    }
 
+    .stats-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    .stats-list li {
+      background-color: #f9f9f9;
+      margin-bottom: 0.5rem;
+      padding: 0.5rem;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      display: flex;
+      justify-content: space-between;
+    }
         .friend button {
             background-color: #333;
             color: white;
