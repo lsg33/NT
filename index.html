@@ -120,16 +120,23 @@
             flex-grow: 1;
         }
 
-        .product {
-            border: 1px solid #ddd;
-            padding: 1rem;
-            margin: 1rem 0;
-            margin: 0 1rem 1rem 0;
-            text-align: center;
-            border-radius: 8px;
-            flex-shrink: 0;
-            background-image: url('https://images.genius.com/42b0e9b115b685c8dd7e7f32e3f1ce9c.999x999x1.jpg');
-        }
+.product {
+  width: 300px;           /* or whatever width you want */
+  height: 300px;          /* fixed height to see the image */
+  background-size: cover; /* cover entire div */
+  background-position: center;
+  background-repeat: no-repeat;
+  color: white;           /* text color on top */
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end; /* push text/buttons to bottom */
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+  position: relative;
+background-image: url('https://images.genius.com/42b0e9b115b685c8dd7e7f32e3f1ce9c.999x999x1.jpg');
+}
+
 
         .product img {
             max-width: 100%;
