@@ -223,6 +223,24 @@
       text-align: right;
       font-weight: bold;
     }
+
+    #userInfoBox {
+      position: absolute;
+      top: 100px; /* adjust based on your layout */
+      left: 20px;
+      padding: 10px;
+      background-color: #222;
+      color: white;
+      border: 1px solid #555;
+      border-radius: 8px;
+      display: none;
+      z-index: 10;
+    }
+
+  #usernames:hover + #userInfoBox {
+    display: block;
+  }
+
   </style>
 </head>
 <body>
@@ -265,7 +283,12 @@
              <div class="currency-label" id="currency-label">Currency: 0</div>
             <div class="cosmetics-grid" id="cosmetics-grid"></div>
         </div>
-    
+
+
+        <div id="userInfoBox">
+          <p>Past Usernames:</p>
+          
+        </div>
     </section>
 
     <div id="reportModal" class="report-modal">
@@ -288,6 +311,18 @@
   </footer>
 
   <script>
+
+    const hoverTarget = document.getElementById("usernames");
+const infoBox = document.getElementById("userInfoBox");
+
+hoverTarget.addEventListener("mouseenter", () => {
+  infoBox.style.display = "block";
+});
+
+hoverTarget.addEventListener("mouseleave", () => {
+  infoBox.style.display = "none";
+});
+
     function showTab(tab) {
       const tabs = ['statsTab', 'cosmeticsTab'];
       tabs.forEach(id => {
@@ -377,6 +412,20 @@
             img.onerror = () => img.style.display = 'none';
             cosmeticsGrid.appendChild(img);
           });
+        }
+
+        if (Array.isArray(userData.pastUsernames) && userData.pastUsernames.length > 0) {
+          userData.pastUsernames.forEach(name => {
+            const p = document.createElement('p');
+            p.textContent = `• ${name}`;
+            p.style.marginLeft = "10px"; // indent for style
+            infoBox.appendChild(p);
+          });
+        } else {
+          const p = document.createElement('p');
+          p.textContent = "• None";
+          p.style.marginLeft = "10px";
+          infoBox.appendChild(p);
         }
 
       toggleStatus(userData.online);
