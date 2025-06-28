@@ -36,14 +36,6 @@
       border-radius: 4px;
     }
 
-    .search-bar {
-      position: absolute;
-      right: 1rem;
-      top: 1rem;
-      display: flex;
-      align-items: center;
-    }
-
     main {
       flex-grow: 1;
       display: flex;
@@ -183,24 +175,19 @@
     }
 
     .tab-content-wrapper {
-      position: relative;
-      min-height: 200px;
+      width: 100%;
+      min-height: 300px; /* Keeps height stable */
     }
 
     .tab-content {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      visibility: hidden;
+      display: none;
       opacity: 0;
       transition: opacity 0.3s ease;
     }
 
     .tab-content.active {
-      visibility: visible;
+      display: block;
       opacity: 1;
-      position: relative;
     }
 
     .stats-list {
@@ -302,7 +289,7 @@
   </main>
 
   <footer>
-    <p>&copy; 2025 Nova Tag By LSG</p>
+    <p>&copy; 2024 Nova Tag By LSG</p>
   </footer>
 
   <script>
