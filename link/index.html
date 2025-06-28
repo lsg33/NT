@@ -192,7 +192,7 @@
         return;
       }
 
-      fetch(`https://novatag.lol/friendss?id=${code}`)
+      fetch(`https://novatag.lol/link?id=${code}`)
         .then(res => {
           if (!res.ok) throw new Error("User not found");
           return res.json();
@@ -202,7 +202,7 @@
           const container = document.getElementById('cosmeticContainer');
           container.innerHTML = '';
 
-          if (user.inventory) {
+          if (user.cosmeticPurchases) {
             const items = user.inventory.split(',');
             items.forEach(item => {
               const img = document.createElement('img');
