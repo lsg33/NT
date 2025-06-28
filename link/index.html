@@ -212,7 +212,7 @@ function submitCode() {
     .then(data => {
       setCookie('username', data.username);
       setCookie('IsLoggedIn', 'true');
-      window.location.href = `/`;
+      window.location.href = `https://novatag.lol`;
     })
     .catch(err => {
       alert("Invalid link code, user not found, or server error.");
