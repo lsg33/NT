@@ -453,6 +453,13 @@
     </script>
 
 <script>
+
+window.addEventListener("pageshow", (event) => {
+  if (event.persisted || performance.getEntriesByType("navigation")[0].type === "back_forward") {
+    location.reload();
+  }
+});
+
     function getCookie(name) {
         const value = `; ${document.cookie}`;
         const parts = value.split(`; ${name}=`);
