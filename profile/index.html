@@ -224,18 +224,18 @@
       font-weight: bold;
     }
 
-    #userInfoBox {
-      position: absolute;
-      top: 100px; /* adjust based on your layout */
-      left: 20px;
-      padding: 10px;
-      background-color: #222;
-      color: white;
-      border: 1px solid #555;
-      border-radius: 8px;
-      display: none;
-      z-index: 10;
-    }
+   #userInfoBox {
+  position: absolute;
+  display: none;
+  padding: 10px;
+  background-color: #222;
+  color: #fff;
+  border: 1px solid #555;
+  border-radius: 8px;
+  z-index: 1000;
+  pointer-events: none; /* So it doesn't block mouse events */
+}
+
 
   #usernames:hover + #userInfoBox {
     display: block;
