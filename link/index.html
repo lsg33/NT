@@ -181,46 +181,58 @@
       submitCode();
     });
 
-    function submitCode() {
-      const code = Array.from(boxes).map(box => box.value.trim()).join('');
-
-      if (code.length !== 6) {
-        boxes.forEach(b => {
-          if (!b.value) b.classList.add("invalid");
-        });
-        alert("Please enter all 6 characters.");
-        return;
-      }
-
-      fetch(`https://novatag.lol/link?linkCode=${code}`)
-        .then(res => {
-          if (!res.ok) throw new Error("User not found");
-          return res.json();
-        })
-        .then(user => {
-          document.getElementById('usernameDisplay').textContent = `${user.username}'s Cosmetics`;
-          const container = document.getElementById('cosmeticContainer');
-          container.innerHTML = '';
-
-if (user.cosmeticPurchases && user.cosmeticPurchases.length > 0) {
-  const items = user.cosmeticPurchases;  // assuming this is an array
-  items.forEach(item => {
-    const img = document.createElement('img');
-    img.src = `https://novatag.lol/images/cosmetics/${item.trim()}.png`;
-    img.alt = item.trim();
-    img.onerror = () => (img.style.display = 'none');
-    container.appendChild(img);
-  });
+   function getCookie(name) {
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+  if (parts.length === 2) return parts.pop().split(';').shift();
+  return null;
 }
 
+function submitCode() {
+  const code = Array.from(boxes).map(box => box.value.trim()).join('');
+  const username = getCookie('username');  // Adjust cookie name if needed
 
-          document.getElementById('userSection').style.display = 'block';
-        })
-        .catch(err => {
-          alert("Invalid link code or server error.");
-          console.error(err);
+  if (code.length !== 6) {
+    boxes.forEach(b => {
+      if (!b.value) b.classList.add("invalid");
+    });
+    alert("Please enter all 6 characters.");
+    return;
+  }
+
+  if (!username) {
+    alert("Username not found in cookies.");
+    return;
+  }
+
+  fetch(`https://novatag.lol/user?username=${encodeURIComponent(username)}&linkCode=${encodeURIComponent(code)}`)
+    .then(res => {
+      if (!res.ok) throw new Error("User not found or invalid link code");
+      return res.json();
+    })
+    .then(user => {
+      document.getElementById('usernameDisplay').textContent = `${user.username}'s Cosmetics`;
+      const container = document.getElementById('cosmeticContainer');
+      container.innerHTML = '';
+
+      if (user.cosmeticPurchases && user.cosmeticPurchases.length > 0) {
+        const items = user.cosmeticPurchases;
+        items.forEach(item => {
+          const img = document.createElement('img');
+          img.src = `https://novatag.lol/images/cosmetics/${item.trim()}.png`;
+          img.alt = item.trim();
+          img.onerror = () => (img.style.display = 'none');
+          container.appendChild(img);
         });
-    }
+      }
+
+      document.getElementById('userSection').style.display = 'block';
+    })
+    .catch(err => {
+      alert("Invalid link code, user not found, or server error.");
+      console.error(err);
+    });
+}
   </script>
 
 </body>
