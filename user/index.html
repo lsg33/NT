@@ -266,6 +266,42 @@
             right: 5px; /* Adjust as needed */
             border: 2px solid white; /* Optional: add a border for better visibility */
         }
+        
+    .cosmetics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
+      gap: 10px;
+      margin-top: 1rem;
+    }
+
+    .cosmetic-block {
+      width: 100%;
+      aspect-ratio: 1;
+      background-color: #ccc;
+      border-radius: 4px;
+    }
+
+    .currency-label {
+      text-align: right;
+      font-weight: bold;
+    }
+
+   #userInfoBox {
+  position: absolute;
+  display: none;
+  padding: 10px;
+  background-color: #222;
+  color: #fff;
+  border: 1px solid #555;
+  border-radius: 8px;
+  z-index: 1000;
+  pointer-events: none; /* So it doesn't block mouse events */
+}
+
+
+  #usernames:hover + #userInfoBox {
+    display: block;
+  }
     </style>
 </head>
 
@@ -283,8 +319,7 @@
                     <div onclick="toggleStatus()" class="status-dot" id="status-dot"></div>
                 </div>
                 <div class="profile-info">
-                    <h2 id="displayName">null</h2>
-                    <p>Username: <span id="THeirUerName">null</span></p>
+                    <p>Username: <span id="username">null</span></p>
                     <p>Friends: <span id="friends-count">0</span></p>
                     <input type="hidden" id="friendID" value="">
                     <button onclick="addFriend()" class="friendstuffbuttons" id="friendAdd">Add Friend</button>
@@ -293,15 +328,33 @@
                 <button onclick="showReportModal()" class="friendstuffbuttons">Report</button>
             </div>
 
-            <div class="stats-section">
-                <h3>Stats</h3>
-                <ul class="stats-list">
-                    <li>Tags: <span id="posts-count">0</span></li>
-                    <li>Tag ratio: <span id="likes-count">0</span></li>
-                    <li>Playtime: <span id="comments-count">0</span></li>
-                </ul>
-            </div>
+     <div class="tab-buttons">
+        <button id="statsBtn" class="friendbutton" onclick="showTab('stats')">Stats</button>
+        <button id="cosmeticsBtn" class="friendbutton" onclick="showTab('cosmetics')">Cosmetics</button>
+      </div>
+
+      <div class="tab-content-wrapper">
+        <div id="statsTab" class="tab-content active">
+          <h3>Stats</h3>
+          <ul class="stats-list">
+            <li>Tags: <span id="posts-count">0</span></li>
+            <li>Tag ratio: <span id="likes-count">0%</span></li>
+            <li>Playtime: <span id="comments-count">0</span></li>
+          </ul>
+        </div>
+
+         <div id="cosmeticsTab" class="tab-content">
+             <div class="currency-label" id="currency-label">Currency: 0</div>
+            <div class="cosmetics-grid" id="cosmetics-grid"></div>
+        </div>
+
+
+        <div id="userInfoBox">
+          <p>Past Usernames:</p>
+          
+        </div>
         </section>
+        
         <div id="reportModal" class="report-modal">
             <div class="modal-header">
                 <h2>Report User</h2>
@@ -327,6 +380,29 @@
     </footer>
 
     <script>
+
+           const hoverTarget = document.getElementById("usernames");
+            const infoBox = document.getElementById("userInfoBox");
+            
+            hoverTarget.addEventListener("mouseenter", () => {
+              infoBox.style.display = "block";
+            });
+            
+            hoverTarget.addEventListener("mouseleave", () => {
+              infoBox.style.display = "none";
+            });
+
+    function showTab(tab) {
+      const tabs = ['statsTab', 'cosmeticsTab'];
+      tabs.forEach(id => {
+        const el = document.getElementById(id);
+        if (id === tab + 'Tab') {
+          el.classList.add('active');
+        } else {
+          el.classList.remove('active');
+        }
+      });
+    }
         function goBack() {
             window.history.back();
         }
@@ -431,30 +507,53 @@
         fetchUserData();
     </script>
     <script>
-        function DataFound(userData){
-            let tagRatio = userData.tags / '2';
-            
-            document.getElementById('THeirUerName').textContent = userData.username;
-            document.getElementById('displayName').textContent = userData.displayName;
-            document.getElementById('friends-count').textContent = userData.friendList.length;
-            document.getElementById('posts-count').textContent = userData.tags;
-            document.getElementById('likes-count').textContent = tagRatio + "%";
-            document.getElementById('comments-count').textContent = userData.playtime + "HR";
-            document.getElementById('friendID').value = userData._id;
-            document.getElementById('pfp').src = userData.image;
 
-            if (userData.Online === true) {
-                toggleStatus();
-            } else {
-                toggleStatus();
-            }
-            
-            const titleName = document.getElementById('THeirUerName').textContent
+        function DataFound(userData) {
+      document.getElementById('usernames').textContent = userData.username;
+      document.getElementById('pfp').src = userData.image;
+      document.getElementById('friends-count').textContent = userData.friendList.length;
+      document.getElementById('posts-count').textContent = userData.tags;
+      document.getElementById('likes-count').textContent = Math.round((userData.tagTimes / userData.tags) * 100) + "%";
+      document.getElementById('comments-count').textContent = userData.playtime + "HR";
+
+       document.getElementById('currency-label').textContent = "Currency: " + userData.currency;
+
+  // Cosmetics display
+      const cosmeticsGrid = document.getElementById('cosmetics-grid');
+      cosmeticsGrid.innerHTML = ''; // clear old cosmetics
+
+        if (Array.isArray(userData.cosmeticPurchases)) {
+          userData.cosmeticPurchases.forEach(item => {
+            const img = document.createElement('img');
+            img.classList.add('cosmetic-block');
+            img.src = `/images/cosmetics/${item.trim()}.png`;
+            img.alt = item.trim();
+            img.onerror = () => img.style.display = 'none';
+            cosmeticsGrid.appendChild(img);
+          });
+        }
+
+        if (Array.isArray(userData.pastUsernames) && userData.pastUsernames.length > 0) {
+          userData.pastUsernames.forEach(name => {
+            const p = document.createElement('p');
+            p.textContent = `• ${name}`;
+            p.style.marginLeft = "10px"; // indent for style
+            infoBox.appendChild(p);
+          });
+        } else {
+          const p = document.createElement('p');
+          p.textContent = "• None";
+          p.style.marginLeft = "10px";
+          infoBox.appendChild(p);
+        }
+
+              const titleName = document.getElementById('username').textContent
             document.getElementById('theotherp').textContent = titleName;
             document.title = `${titleName}'s Profile`;
             checkFriend();
-            
-        }
+      toggleStatus(userData.online);
+    }
+       
     </script>
 
     <script>      
