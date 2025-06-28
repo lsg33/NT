@@ -192,7 +192,7 @@
         return;
       }
 
-      fetch(`https://novatag.lol/link?id=${code}`)
+      fetch(`https://novatag.lol/link?linkCode=${code}`)
         .then(res => {
           if (!res.ok) throw new Error("User not found");
           return res.json();
