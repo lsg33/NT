@@ -188,9 +188,13 @@
   return null;
 }
 
+function setCookie(name, value, days = 1) {
+  const expires = new Date(Date.now() + days * 864e5).toUTCString();
+  document.cookie = `${name}=${encodeURIComponent(value)}; expires=${expires}; path=/`;
+}
+
 function submitCode() {
   const code = Array.from(boxes).map(box => box.value.trim()).join('');
-  const username = getCookie('username');  // Adjust cookie name if needed
 
   if (code.length !== 6) {
     boxes.forEach(b => {
@@ -200,39 +204,25 @@ function submitCode() {
     return;
   }
 
-  if (!username) {
-    alert("Username not found in cookies.");
-    return;
-  }
-
-  fetch(`https://ntapi-production.up.railway.app/link?username=${encodeURIComponent(username)}&linkCode=${encodeURIComponent(code)}`)
+  fetch(`https://ntapi-production.up.railway.app/user?linkCode=${encodeURIComponent(code)}`)
     .then(res => {
       if (!res.ok) throw new Error("User not found or invalid link code");
       return res.json();
     })
-    .then(user => {
-      document.getElementById('usernameDisplay').textContent = `${user.username}'s Cosmetics`;
-      const container = document.getElementById('cosmeticContainer');
-      container.innerHTML = '';
+    .then(data => {
+      // ✅ Set cookies
+      setCookie('username', data.username);
+      setCookie('IsLoggedIn', 'true');
 
-      if (user.cosmeticPurchases && user.cosmeticPurchases.length > 0) {
-        const items = user.cosmeticPurchases;
-        items.forEach(item => {
-          const img = document.createElement('img');
-          img.src = `https://novatag.lol/images/cosmetics/${item.trim()}.png`;
-          img.alt = item.trim();
-          img.onerror = () => (img.style.display = 'none');
-          container.appendChild(img);
-        });
-      }
-
-      document.getElementById('userSection').style.display = 'block';
+     window.location.href = `/`;
+ 
     })
     .catch(err => {
       alert("Invalid link code, user not found, or server error.");
       console.error(err);
     });
 }
+
   </script>
 
 </body>
