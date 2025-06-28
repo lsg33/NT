@@ -202,16 +202,17 @@
           const container = document.getElementById('cosmeticContainer');
           container.innerHTML = '';
 
-          if (user.cosmeticPurchases) {
-            const items = user.inventory.split(',');
-            items.forEach(item => {
-              const img = document.createElement('img');
-              img.src = `https://novatag.lol/images/cosmetics/${item.trim()}.png`;
-              img.alt = item.trim();
-              img.onerror = () => img.style.display = 'none';
-              container.appendChild(img);
-            });
-          }
+if (user.cosmeticPurchases && user.cosmeticPurchases.length > 0) {
+  const items = user.cosmeticPurchases;  // assuming this is an array
+  items.forEach(item => {
+    const img = document.createElement('img');
+    img.src = `https://novatag.lol/images/cosmetics/${item.trim()}.png`;
+    img.alt = item.trim();
+    img.onerror = () => (img.style.display = 'none');
+    container.appendChild(img);
+  });
+}
+
 
           document.getElementById('userSection').style.display = 'block';
         })
