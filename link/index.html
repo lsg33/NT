@@ -211,7 +211,7 @@ function submitCode() {
     })
     .then(data => {
       setCookie('username', data.username);
-      setCookie('IsLoggedIn', 'true');
+      setCookie('isLoggedIn', 'true');
       window.location.href = `https://novatag.lol`;
     })
     .catch(err => {
