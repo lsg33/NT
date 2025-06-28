@@ -210,12 +210,9 @@ function submitCode() {
       return res.json();
     })
     .then(data => {
-      // ✅ Set cookies
       setCookie('username', data.username);
       setCookie('IsLoggedIn', 'true');
-
-     window.location.href = `/`;
- 
+      window.location.href = `/`;
     })
     .catch(err => {
       alert("Invalid link code, user not found, or server error.");
