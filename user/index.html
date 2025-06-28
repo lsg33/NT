@@ -436,6 +436,9 @@
     </script>
 
     <script>
+
+        let playFabID;
+        
         function confirmReport() {
             const reason = document.getElementById('reportReason').value;
             const category = document.getElementById('reportCategory').value;
@@ -443,7 +446,7 @@
             const myUsername = getCookie("username");
             // Example webhook URL for testing
             const webhookURL = 'https://discord.com/api/webhooks/1381724654938361856/m9w1BLcUjBDUEfreCz3t5e0t_z9lhpt1F6DYKJdFNxytgVMLkDBSEwohrf_itB4DxsuW';
-            const message = `\`\`\`New report submitted! \nReason: ${reason} \nCategory: ${category} \nOFF User: ${RPTusername} \nRPT User: ${myUsername}\`\`\``;
+            const message = `\`\`\`New report submitted! \nReason: ${reason} \nCategory: ${category} \nOFF User: ${RPTusername} \nPlayfab ID: ${playfabID} \nRPT User: ${myUsername}\`\`\``;
 
             try {
                 fetch(webhookURL, {
@@ -521,6 +524,7 @@
       document.getElementById('posts-count').textContent = userData.tags;
       document.getElementById('likes-count').textContent = Math.round((userData.tagTimes / userData.tags) * 100) + "%";
       document.getElementById('comments-count').textContent = userData.playtime + "HR";
+      playfabID = userData.playfabID;
 
        document.getElementById('currency-label').textContent = "Currency: " + userData.currency;
 
