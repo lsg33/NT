@@ -204,7 +204,7 @@ function submitCode() {
     return;
   }
 
-  fetch(`https://ntapi-production.up.railway.app/user?linkCode=${encodeURIComponent(code)}`)
+  fetch(`https://ntapi-production.up.railway.app/link?linkCode=${encodeURIComponent(code)}`)
     .then(res => {
       if (!res.ok) throw new Error("User not found or invalid link code");
       return res.json();
