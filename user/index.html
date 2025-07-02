@@ -342,7 +342,7 @@
           <h3>Stats</h3>
           <ul class="stats-list">
             <li>Tags: <span id="posts-count">0</span></li>
-            <li>Tag ratio: <span id="likes-count">0%</span></li>
+            <li>TR: <span id="likes-count">0%</span></li>
             <li>Playtime: <span id="comments-count">0</span></li>
           </ul>
         </div>
@@ -522,7 +522,8 @@
       document.getElementById('pfp').src = userData.image;
       document.getElementById('friends-count').textContent = userData.friendList.length;
       document.getElementById('posts-count').textContent = userData.tags;
-      document.getElementById('likes-count').textContent = Math.round((userData.tagTimes / userData.tags) * 100) + "%";
+const kd = userData.tags === 0 ? userData.tagTimes : (userData.tagTimes / userData.tags);
+document.getElementById('likes-count').textContent = kd.toFixed(2);
       document.getElementById('comments-count').textContent = userData.playtime + "HR";
       playfabID = userData.playfabID;
 
