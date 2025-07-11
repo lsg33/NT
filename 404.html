@@ -1,33 +1,129 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Page Not Found</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            padding: 50px;
-        }
-        h1 {
-            font-size: 50px;
-        }
-        p {
-            font-size: 20px;
-        }
-        a {
-            color: #007BFF;
-            text-decoration: none;
-        }
-        a:hover {
-            text-decoration: underline;
-        }
-    </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>404 — Page Not Found</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+
+  /* Reset & basics */
+  * {
+    margin: 0; padding: 0; box-sizing: border-box;
+  }
+  html, body {
+  margin: 0; padding: 0;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+  font-family: 'Poppins', sans-serif;
+  color: #fff;
+  text-align: center;
+  position: relative;
+}
+
+#warp {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at center, rgba(255 255 255 / 0.15) 2px, transparent 3px),
+    radial-gradient(circle at center, rgba(255 255 255 / 0.05) 1px, transparent 2px);
+  background-repeat: repeat;
+  background-size: 50px 50px, 100px 100px;
+  background-position: center center, center center;
+  will-change: background-position;
+  z-index: 0;
+  transition: background-position 0.1s ease-out;
+}
+
+
+
+  main {
+    z-index: 10;
+    max-width: 440px;
+    padding: 30px 20px;
+    background: rgba(0,0,0,0.3);
+    border-radius: 20px;
+    box-shadow:
+      0 0 30px rgba(255 255 255 / 0.15),
+      inset 0 0 50px rgba(255 255 255 / 0.1);
+  }
+
+  h1 {
+    font-size: 9rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.4em;
+    text-shadow:
+      0 0 15px #00fff7,
+      0 0 40px #00fff7;
+  }
+
+  p {
+    font-size: 1.25rem;
+    margin-bottom: 1.5em;
+    color: #d0f4f4;
+    text-shadow: 0 0 10px rgba(0,255,255,0.5);
+  }
+
+  a.button {
+    display: inline-block;
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: #00fff7;
+    text-decoration: none;
+    border: 2px solid #00fff7;
+    padding: 0.75em 2em;
+    border-radius: 40px;
+    transition: 
+      background-color 0.3s ease,
+      color 0.3s ease,
+      box-shadow 0.4s ease;
+  }
+
+  a.button:hover,
+  a.button:focus {
+    background-color: #00fff7;
+    color: #042b2b;
+    box-shadow: 0 0 15px #00fff7;
+    outline: none;
+  }
+
+  @media (max-width: 480px) {
+    h1 {
+      font-size: 6rem;
+    }
+    main {
+      max-width: 90vw;
+    }
+  }
+</style>
 </head>
 <body>
+  <div id="warp"></div>
+  <main>
     <h1>404</h1>
-    <p>Oops! The page you are looking for does not exist.</p>
-    <p><a href="/">Go back to the homepage</a></p>
+    <p>Oops! The page you are looking for doesn’t exist.</p>
+    <a href="/" class="button" aria-label="Go back to homepage">Go back home</a>
+  </main>
+
+  <script>
+    // Interactive warp effect based on mouse position
+    const warp = document.getElementById('warp');
+    window.addEventListener('mousemove', e => {
+      const x = (e.clientX / window.innerWidth - 0.5) * 30; // range -15 to +15 px
+      const y = (e.clientY / window.innerHeight - 0.5) * 30;
+      warp.style.backgroundPosition = 
+        `calc(50% + ${x}px) calc(50% + ${y}px), calc(50% + ${x/2}px) calc(50% + ${y/2}px)`;
+    });
+
+  </script>
 </body>
 </html>
